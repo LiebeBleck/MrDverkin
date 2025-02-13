@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Дверная компания</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header>
+    <img src="logo.png" alt="Логотип компании">
+    <nav>
+        <ul>
+            <li><a href="/">Главная</a></li>
+            <li><a href="/orders">Заказы</a></li>
+            <li><a href="/profile">Мой профиль</a></li>
+            <li><a href="/logout">Выход</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main>
+    <section class="orders">
+        <h2>Текущие заказы</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>Номер заказа</th>
+                <th>Статус</th>
+                <th>Продавец</th>
+                <th>Установщик</th>
+                <th>Прогресс</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>1234</td>
+                <td>В процессе</td>
+                <td>Иван Иванов</td>
+                <td>Петр Петров</td>
+                <td>50%</td>
+            </tr>
+            <!-- другие заказы -->
+            </tbody>
+        </table>
+        <button><a href="/orders/create">Создать новый заказ</a></button>
+    </section>
+
+    <section class="notifications">
+        <h3>Уведомления</h3>
+        <ul>
+            <li>Заказ №1234 изменил статус на "В процессе"</li>
+            <li>Новый заказ от клиента Иванова</li>
+            <!-- другие уведомления -->
+        </ul>
+    </section>
+
+    <section class="profile">
+        <h3>Мой профиль</h3>
+        <p>Имя: Иван Иванов</p>
+        <p>Роль: Продавец</p>
+        <button><a href="/profile/settings">Изменить настройки</a></button>
+    </section>
+</main>
+
+<footer>
+    <p>Контактная информация: info@doorscompany.com</p>
+    <p><a href="/privacy">Политика конфиденциальности</a> | <a href="/terms">Условия использования</a></p>
+    <div>
+        <a href="https://facebook.com">Facebook</a>
+        <a href="https://twitter.com">Twitter</a>
+    </div>
+</footer>
+</body>
+</html>
