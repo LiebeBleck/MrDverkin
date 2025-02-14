@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Orders</title>
+</head>
+<body>
+<form method="POST" th:action="@{/orders}" th:object="${order}">
+    <h1>Заполните данные о заказе</h1>
+
+    <h3>Укажите данные заказчика</h3>
+
+    <label for="fullName">ФИО: </label>
+    <input type="text" id="fullName" th:field = "*{name}">
+    <span th:if = "${#fields.hasErrors('name')}" th:errors = "*{name}" style="color: red;"></span>
+    <br>
+
+    <label for="address">Адрес: </label>
+    <input type="text" id="address" th:field = "*{address}">
+    <span th:if = "${#fields.hasErrors('address')}" th:errors = "*{address}" style="color: red;"></span>
+    <br>
+
+    <label for="phoneDelivery">Номер телефона: </label>
+    <input type="number" id="phoneDelivery" th:field = "*{phone}" required pattern="\d{10}" title="Must be 10 digits">
+    <span th:if = "${#fields.hasErrors('phone')}" th:errors = "*{phone}" style="color: red;"></span>
+    <br>
+
+    <label for="email">email:  </label>
+    <input type="email" id="email" th:field = "*{email}">
+    <span th:if = "${#fields.hasErrors('email')}" th:errors = "*{email}" style="color: red;"></span>
+    <br>
+
+    <h3>Укажите прочие данные</h3>
+
+    <label for="dateOrdered">Дата доставки:  </label>
+    <input type="date" id="dateOrdered" th:field = "*{dateOrdered}">
+    <span th:if = "${#fields.hasErrors('dateOrdered')}" th:errors = "*{dateOrdered}" style="color: red;"></span>
+    <br>
+
+    <label for="timeOrdered">Время доставки:  </label>
+    <input type="time" id="timeOrdered" th:field = "*{timeOrdered}">
+    <span th:if = "${#fields.hasErrors('timeOrdered')}" th:errors = "*{timeOrdered}" style="color: red;"></span>
+    <br>
+
+    <label for="price">Сумма заказа:  </label>
+    <input type="number" id="price" th:field = "*{price}">
+    <span th:if = "${#fields.hasErrors('price')}" th:errors = "*{price}" style="color: red;"></span>
+    <br>
+
+    <input type="submit" value="Submit Order"/>
+</form>
+</body>
+</html>

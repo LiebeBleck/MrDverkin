@@ -2,5 +2,5 @@ package org.example.mrdverkin.dataBase;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface IngredientRepository extends JpaRepository <Door,Long> {
+public interface OrdersRepository extends JpaRepository <Order, Long> {
 }
