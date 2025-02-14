@@ -43,7 +43,8 @@ public class Order {
     @Min(value = 0, message = "Сумма не может быть отрицательной")
     private Float price;
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    @OneToMany
+    @JoinColumn(name = "order_id")
     private List<Door> doors = new ArrayList<>();
 
     private Date placedAt = new Date();

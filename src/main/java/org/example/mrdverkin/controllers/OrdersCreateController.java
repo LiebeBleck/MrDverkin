@@ -1,10 +1,13 @@
 package org.example.mrdverkin.controllers;
 
 import jakarta.validation.Valid;
+import org.example.mrdverkin.dataBase.Door;
+import org.example.mrdverkin.dataBase.DoorsRepository;
 import org.example.mrdverkin.dataBase.Order;
 import org.example.mrdverkin.dataBase.OrdersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -12,14 +15,21 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.support.SessionStatus;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/orders")
 public class OrdersCreateController {
     @Autowired
     private OrdersRepository ordersRepository;
+    @Autowired
+    private DoorsRepository doorsRepository;
 
     @GetMapping("/create")
-    public String createOrder() {
+    public String createOrder(Model model) {
+        List<Door> doors = doorsRepository.findAll();
+        model.addAttribute("order", new Order());  // Добавляем пустой заказ
+        model.addAttribute("doors", doors);
         return "create";
     }
     @ModelAttribute("order")

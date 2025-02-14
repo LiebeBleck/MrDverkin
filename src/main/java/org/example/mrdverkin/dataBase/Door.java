@@ -13,8 +13,22 @@ public class Door {
     private String doorName;
     private float price;
 
-    @ManyToOne
-    @JoinColumn(name = "order_id")
-    private Order order = new Order();
-
+    public int getId() {
+        return id;
+    }
+    public void setId(int id) {
+        this.id = id;
+    }
+    public String getDoorName() {
+        return doorName;
+    }
+    public void setDoorName(String doorName) {
+        this.doorName = doorName;
+    }
+    public float getPrice() {
+        return price;
+    }
+    public void setPrice(float price) {
+        this.price = price;
+    }
 }
