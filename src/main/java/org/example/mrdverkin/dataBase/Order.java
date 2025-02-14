@@ -2,11 +2,11 @@ package org.example.mrdverkin.dataBase;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 
+import java.sql.Time;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -14,7 +14,6 @@ import java.util.List;
 
 @Entity
 @Table(name = "order_doors")
-@Setter
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,13 +31,14 @@ public class Order {
 
     private String email;
 
-    @NotNull(message = "Дата доставки должна быть указана ")
+    @NotNull(message = "Дата доставки должна быть указана")
+    @NotBlank(message = "Дата доставки должна быть указана")
     @Temporal(TemporalType.DATE)
-    private Date dateOrdered;
+    private String dateOrdered;
 
-    @NotNull(message = "Время доставки должно быть указано ")
-    @Temporal(TemporalType.TIME)
-    private Date timeOrdered;
+    @NotNull(message = "Время доставки должно быть указано")
+    @DateTimeFormat(pattern = "HH:mm")
+    private Time timeOrdered;
 
     @NotNull(message = "Сумма должна быть указана ")
     @Min(value = 0, message = "Сумма не может быть отрицательной")
@@ -64,16 +64,45 @@ public class Order {
     public String getEmail() {
         return email;
     }
-    public Date getDateOrdered() {
+    public String getDateOrdered() {
         return dateOrdered;
     }
-    public Date getTimeOrdered() {
-        return timeOrdered;
+    public String getTimeOrdered() {
+        return String.valueOf(timeOrdered);
     }
     public Float getPrice() {
         return price;
     }
     public List<Door> getDoors() {
         return doors;
+    }
+    public void setName(String name){
+        this.name = name;
+    }
+    public void setAddress(String address){
+        this.address = address;
+    }
+    public void setPhone(String phone){
+        this.phone = phone;
+    }
+    public void setEmail(String email){
+        this.email = email;
+    }
+    public void setDateOrdered(String dateString) {
+        this.dateOrdered = dateString;
+    }
+    public void setTimeOrdered(String timeString) {
+        if (timeString != null) {
+            // Добавляем секунды, чтобы строка стала в формате HH:mm:ss
+            timeString = timeString + ":00";  // Добавляем секунд
+            this.timeOrdered = Time.valueOf(timeString);  // Конвертируем в Time
+        }
+    }
+
+    public void setPrice(Float price){
+        this.price = price;
+    }
+    public void setDoors(List<Door> doors){
+        this.doors = doors;
     }
 }
