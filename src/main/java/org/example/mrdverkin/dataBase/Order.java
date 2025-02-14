@@ -6,6 +6,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 
 import java.sql.Time;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -31,10 +32,8 @@ public class Order {
 
     private String email;
 
-    @NotNull(message = "Дата доставки должна быть указана")
-    @NotBlank(message = "Дата доставки должна быть указана")
     @Temporal(TemporalType.DATE)
-    private String dateOrdered;
+    private Date dateOrdered;
 
     @NotNull(message = "Время доставки должно быть указано")
     @DateTimeFormat(pattern = "HH:mm")
@@ -64,7 +63,7 @@ public class Order {
     public String getEmail() {
         return email;
     }
-    public String getDateOrdered() {
+    public Date getDateOrdered() {
         return dateOrdered;
     }
     public String getTimeOrdered() {
@@ -89,8 +88,14 @@ public class Order {
         this.email = email;
     }
     public void setDateOrdered(String dateString) {
-        this.dateOrdered = dateString;
+        if (dateString != null) {
+            try {
+                // Преобразование строки в объект Date
+                this.dateOrdered = new SimpleDateFormat("yyyy-MM-dd").parse(dateString);
+            } catch (ParseException e) {}
+        }
     }
+
     public void setTimeOrdered(String timeString) {
         if (timeString != null) {
             // Добавляем секунды, чтобы строка стала в формате HH:mm:ss
