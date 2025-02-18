@@ -15,33 +15,38 @@ import org.springframework.web.bind.support.SessionStatus;
 import java.util.List;
 
 @Controller
-@RequestMapping("/orders")
-public class OrdersCreateController {
-    @Autowired
-    private OrdersRepository ordersRepository;
+@RequestMapping("/doors")
+public class OrdersDorsController {
     @Autowired
     private DoorsRepository doorsRepository;
 
-    @GetMapping("/create")
+
+    @GetMapping()
     public String createOrder(Model model) {
-//        List<Door> doors = doorsRepository.findAll();
-//        model.addAttribute("order", new Order());  // Добавляем пустой заказ
-//        model.addAttribute("doors", doors);
-        return "create";
+        List<Door> doors = doorsRepository.findAll();
+        model.addAttribute("order", new Order());  // Добавляем пустой заказ
+        model.addAttribute("doors", doors);
+        return "doors";
     }
-    @ModelAttribute("order")
-    public Order order() {
-        return new Order();
+
+    @ModelAttribute("DoorsOrder")
+    public DoorsOrder doorsOrder() {
+        return new DoorsOrder();
+    }
+
+    @ModelAttribute("door")
+    public Door door() {
+        return new Door();
     }
 
     @PostMapping
-    public String createOrder(@Valid Order order, @ModelAttribute DoorsOrder doorsOrder,
-                              Errors errors, SessionStatus sessionStatus) {
+    public String addDoors(@ModelAttribute DoorsOrder doorsOrder,
+                              @Valid Door door, Errors errors, SessionStatus sessionStatus) {
         if (errors.hasErrors()) {
             return "create";
         }
-        order.addDoor(doorsOrder);
-        ordersRepository.save(order);
+        doorsOrder.addDoor(door);
+        System.out.println("adadasdadsd");
         sessionStatus.setComplete();
         return "redirect:/orders/create";
     }

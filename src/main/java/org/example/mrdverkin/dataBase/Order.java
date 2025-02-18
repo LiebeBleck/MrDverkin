@@ -14,7 +14,7 @@ import java.util.List;
 
 
 @Entity
-@Table(name = "order_doors")
+@Table(name = "\"order\"")
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -43,17 +43,23 @@ public class Order {
     @Min(value = 0, message = "Сумма не может быть отрицательной")
     private Float price;
 
-    @OneToMany
-    @JoinColumn(name = "order_id")
-    private List<Door> doors = new ArrayList<>();
+    @OneToMany(cascade = CascadeType.ALL)
+//    @JoinColumn(name = "order_id")
+    private List<DoorsOrder> doors = new ArrayList<>();
 
     private Date placedAt = new Date();
 
-    public void addDoor(Door door) {
+    public void addDoor(DoorsOrder door) {
         this.doors.add(door);
     }
     public String getName(){
         return name;
+    }
+    public void setPlacedAt(Date placedAt){
+        this.placedAt = new Date();
+    }
+    public Date getPlacedAt(){
+        return placedAt;
     }
     public String getAddress() {
         return address;
@@ -73,7 +79,7 @@ public class Order {
     public Float getPrice() {
         return price;
     }
-    public List<Door> getDoors() {
+    public List<DoorsOrder> getDoors() {
         return doors;
     }
     public void setName(String name){
@@ -108,7 +114,7 @@ public class Order {
     public void setPrice(Float price){
         this.price = price;
     }
-    public void setDoors(List<Door> doors){
+    public void setDoors(List<DoorsOrder> doors){
         this.doors = doors;
     }
 }
