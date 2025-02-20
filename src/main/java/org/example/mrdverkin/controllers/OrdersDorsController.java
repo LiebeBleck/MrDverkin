@@ -40,23 +40,10 @@ public class OrdersDorsController {
 
     @PostMapping
     public String addDoors(@ModelAttribute OrderDoors orderDoors, SessionStatus sessionStatus) {
-        List<Long> doorIds = orderDoors.getDoorIds(); // Получаем список ID дверей из объекта
-        List<Integer> count = orderDoors.getCount();
-
-        if (doorIds == null || doorIds.isEmpty()) {
+        if (orderDoors.getDoor() == null || orderDoors.getDoor().isEmpty()) {
             return "redirect:/doors?error=NoDoorsSelected"; // Обработай случай, если ничего не выбрано
         }
-
-        List<Door> selectedDoors = doorsRepository.findAllById(doorIds); // Загружаем двери по ID
-
-        for (Door door : selectedDoors) {
-            OrderDoors newOrderDoors = new OrderDoors();
-            newOrderDoors.setDoor(door);
-            newOrderDoors.setCountDors(count.get(0));
-            count.remove(0);
-            orderDorsRepository.save(newOrderDoors);
-        }
-
+        orderDorsRepository.save(orderDoors);
         sessionStatus.setComplete();
         return "redirect:/orders/create";
     }

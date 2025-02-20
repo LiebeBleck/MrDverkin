@@ -17,32 +17,31 @@ import java.util.List;
 @Controller
 @RequestMapping("/orders")
 public class OrdersCreateController {
-//    @Autowired
-//    private OrdersRepository ordersRepository;
-//    @Autowired
-//    private DoorsRepository doorsRepository;
+    @Autowired
+    private OrderDorsRepository orderDorsRepository;
+    @Autowired
+    private DoorsRepository doorsRepository;
 
     @GetMapping("/create")
     public String createOrder(Model model) {
-//        List<Door> doors = doorsRepository.findAll();
-//        model.addAttribute("order", new Order());  // Добавляем пустой заказ
-//        model.addAttribute("doors", doors);
+        List<Door> doors = orderDorsRepository.findAllDoors();
+        model.addAttribute("order", new Order());  // Добавляем пустой заказ
+        model.addAttribute("doors", doors);
         return "create";
     }
-//    @ModelAttribute("order")
-//    public Order order() {
-//        return new Order();
-//    }
-//
-//    @PostMapping
-//    public String createOrder(@Valid Order order, @ModelAttribute DoorsOrder doorsOrder,
-//                              Errors errors, SessionStatus sessionStatus) {
-//        if (errors.hasErrors()) {
-//            return "create";
-//        }
-//        order.addDoor(doorsOrder);
-//        ordersRepository.save(order);
-//        sessionStatus.setComplete();
-//        return "redirect:/orders/create";
-//    }
+    @ModelAttribute("order")
+    public Order order() {
+        return new Order();
+    }
+
+    @PostMapping
+    public String createOrder(@Valid @ModelAttribute Order order,
+                              Errors errors, SessionStatus sessionStatus) {
+        System.out.println(order);
+        if (errors.hasErrors()) {
+            return "create";
+        }
+        sessionStatus.setComplete();
+        return "redirect:/orders/create";
+    }
 }

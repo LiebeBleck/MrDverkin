@@ -86,8 +86,8 @@
     <h3>Укажите данные заказчика</h3>
 
     <label for="fullName">ФИО: </label>
-    <input type="text" id="fullName" th:field="*{name}" required>
-    <div class="error-message" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+    <input type="text" id="fullName" th:field="*{fullName}" required>
+    <div class="error-message" th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}"></div>
 
     <label for="address">Адрес: </label>
     <input type="text" id="address" th:field="*{address}" required>
@@ -104,12 +104,12 @@
     <h3>Укажите прочие данные</h3>
 
     <label for="dateOrdered">Дата доставки: </label>
-    <input type="date" id="dateOrdered" th:field="*{dateOrdered}" required>
-    <div class="error-message" th:if="${#fields.hasErrors('dateOrdered')}" th:errors="*{dateOrdered}"></div>
+    <input type="date" id="dateOrdered" th:field="*{dateOrder}" required>
+    <div class="error-message" th:if="${#fields.hasErrors('dateOrder')}" th:errors="*{dateOrder}"></div>
 
     <label for="timeOrdered">Время доставки: </label>
-    <input type="time" id="timeOrdered" th:field="*{timeOrdered}" required>
-    <div class="error-message" th:if="${#fields.hasErrors('timeOrdered')}" th:errors="*{timeOrdered}"></div>
+    <input type="time" id="timeOrdered" th:field="*{timeOrder}" required>
+    <div class="error-message" th:if="${#fields.hasErrors('timeOrder')}" th:errors="*{timeOrder}"></div>
 
     <label for="price">Сумма заказа: </label>
     <input type="number" id="price" th:field="*{price}" required>

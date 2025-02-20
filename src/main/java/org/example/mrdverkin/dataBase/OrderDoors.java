@@ -3,6 +3,7 @@ package org.example.mrdverkin.dataBase;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -14,18 +15,13 @@ public class OrderDoors {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "door_id", nullable = false) // Внешний ключ
-    private Door door; // Связываем через ID
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Door> door = new ArrayList<>(); // Связываем через ID
 
-    private int countDors;
-    @Transient
-    private List<Integer> count;
+    @ElementCollection
+    private List<Integer> countDors = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name = "order_id")
     private Order order;
-
-    @Transient // Это поле не сохраняется в БД, оно временное для формы
-    private List<Long> doorIds;
 }
