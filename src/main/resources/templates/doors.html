@@ -72,12 +72,11 @@
   <form method="POST" th:action="@{/doors}" th:object="${order}">
     <div th:each="door : ${doors}" class="door-item">
       <label>
-        <input type="checkbox" th:value="${door.id}" th:field="*{doors}" class="door-checkbox">
-        <input type="checkbox" th:value="${door.id}" class="door-checkbox">
+        <input type="checkbox" th:value="${door.id}" th:field="*{doorIds}" class="door-checkbox">
         <span th:text = "${door.id}"></span>
         <span th:text="${door.doorName}"></span>
       </label>
-      <input type="number" min="1" value="1" class="door-quantity" disabled>
+      <input type="number" min="1" value="1" class="door-quantity" disabled th:field = "*{count}">
     </div>
 
     <input type="submit" value="Добавить в заказ" class="submit-btn">

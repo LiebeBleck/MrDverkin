@@ -34,7 +34,7 @@ public class Order {
     private Float price;
     private Date placeAt = new Date();
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderDoors> orderDoors = new ArrayList<>();
 
     public void addDoor(OrderDoors door) {
