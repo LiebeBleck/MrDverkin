@@ -73,6 +73,8 @@
     <div th:each="door : ${doors}" class="door-item">
       <label>
         <input type="checkbox" th:value="${door.id}" th:field="*{doors}" class="door-checkbox">
+        <input type="checkbox" th:value="${door.id}" class="door-checkbox">
+        <span th:text = "${door.id}"></span>
         <span th:text="${door.doorName}"></span>
       </label>
       <input type="number" min="1" value="1" class="door-quantity" disabled>

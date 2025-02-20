@@ -17,10 +17,10 @@ import java.util.List;
 @Controller
 @RequestMapping("/orders")
 public class OrdersCreateController {
-    @Autowired
-    private OrdersRepository ordersRepository;
-    @Autowired
-    private DoorsRepository doorsRepository;
+//    @Autowired
+//    private OrdersRepository ordersRepository;
+//    @Autowired
+//    private DoorsRepository doorsRepository;
 
     @GetMapping("/create")
     public String createOrder(Model model) {
@@ -29,20 +29,20 @@ public class OrdersCreateController {
 //        model.addAttribute("doors", doors);
         return "create";
     }
-    @ModelAttribute("order")
-    public Order order() {
-        return new Order();
-    }
-
-    @PostMapping
-    public String createOrder(@Valid Order order, @ModelAttribute DoorsOrder doorsOrder,
-                              Errors errors, SessionStatus sessionStatus) {
-        if (errors.hasErrors()) {
-            return "create";
-        }
-        order.addDoor(doorsOrder);
-        ordersRepository.save(order);
-        sessionStatus.setComplete();
-        return "redirect:/orders/create";
-    }
+//    @ModelAttribute("order")
+//    public Order order() {
+//        return new Order();
+//    }
+//
+//    @PostMapping
+//    public String createOrder(@Valid Order order, @ModelAttribute DoorsOrder doorsOrder,
+//                              Errors errors, SessionStatus sessionStatus) {
+//        if (errors.hasErrors()) {
+//            return "create";
+//        }
+//        order.addDoor(doorsOrder);
+//        ordersRepository.save(order);
+//        sessionStatus.setComplete();
+//        return "redirect:/orders/create";
+//    }
 }

@@ -24,14 +24,14 @@ public class OrdersDorsController {
     @GetMapping()
     public String createOrder(Model model) {
         List<Door> doors = doorsRepository.findAll();
-        model.addAttribute("order", new Order());  // Добавляем пустой заказ
+//        model.addAttribute("order", new Order());  // Добавляем пустой заказ
         model.addAttribute("doors", doors);
         return "doors";
     }
 
-    @ModelAttribute("DoorsOrder")
-    public DoorsOrder doorsOrder() {
-        return new DoorsOrder();
+    @ModelAttribute("orderDoors")
+    public OrderDoors doorsOrder() {
+        return new OrderDoors();
     }
 
     @ModelAttribute("door")
@@ -40,12 +40,12 @@ public class OrdersDorsController {
     }
 
     @PostMapping
-    public String addDoors(@ModelAttribute DoorsOrder doorsOrder,
+    public String addDoors(@ModelAttribute OrderDoors orderDoors,
                               @Valid Door door, Errors errors, SessionStatus sessionStatus) {
         if (errors.hasErrors()) {
             return "create";
         }
-        doorsOrder.addDoor(door);
+        System.out.println(orderDoors + "\n" + door);
         System.out.println("adadasdadsd");
         sessionStatus.setComplete();
         return "redirect:/orders/create";

@@ -6,29 +6,14 @@ import lombok.Data;
 
 @Data
 @Entity
+@Table(name = "door")
 public class Door {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private Long id;
     private String doorName;
     private float price;
-
-    public int getId() {
-        return id;
-    }
-    public void setId(int id) {
-        this.id = id;
-    }
-    public String getDoorName() {
-        return doorName;
-    }
-    public void setDoorName(String doorName) {
-        this.doorName = doorName;
-    }
-    public float getPrice() {
-        return price;
-    }
-    public void setPrice(float price) {
-        this.price = price;
-    }
+    private String doorType;
+    private String city;
+    private String color;
 }
