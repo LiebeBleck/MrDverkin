@@ -2,6 +2,7 @@ package org.example.mrdverkin.dataBase;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.ToString;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,6 +10,7 @@ import java.util.List;
 @Entity
 @Data
 @Table
+@ToString(exclude = "order")
 public class OrderDoors {
 
     @Id
@@ -21,7 +23,7 @@ public class OrderDoors {
     @ElementCollection
     private List<Integer> countDors = new ArrayList<>();
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "order_id")
     private Order order;
 }

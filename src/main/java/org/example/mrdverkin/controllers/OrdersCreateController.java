@@ -20,7 +20,7 @@ public class OrdersCreateController {
     @Autowired
     private OrderDorsRepository orderDorsRepository;
     @Autowired
-    private DoorsRepository doorsRepository;
+    private OrderRepository orderRepository;
 
     @GetMapping("/create")
     public String createOrder(Model model) {
@@ -37,11 +37,15 @@ public class OrdersCreateController {
     @PostMapping
     public String createOrder(@Valid @ModelAttribute Order order,
                               Errors errors, SessionStatus sessionStatus) {
-        System.out.println(order);
         if (errors.hasErrors()) {
             return "create";
         }
+        OrderDoors lastOrderDoors =orderDorsRepository.findLastOrderDoors();
+        lastOrderDoors.setOrder(order);
+        order.setOrderDoors(lastOrderDoors);
+        orderRepository.save(order);
         sessionStatus.setComplete();
-        return "redirect:/orders/create";
+        return "done";
+//        return "redirect:/orders/create/done";
     }
 }

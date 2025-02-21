@@ -3,15 +3,19 @@ package org.example.mrdverkin.dataBase;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+import lombok.ToString;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.sql.Time;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 @Entity
 @Data
+@ToString(exclude = "orderDoors")
 @Table(name = "\"order\"")
 public class Order {
 
@@ -24,20 +28,15 @@ public class Order {
     private String email;
 
 
-    @Temporal(TemporalType.DATE)
-    private Date dateOrder;
+    private LocalDate dateOrder;
 
     @NotNull(message = "Время доставки должно быть указано")
     @DateTimeFormat(pattern = "HH:mm")
-    private Time timeOrder;
+    private LocalTime timeOrder;
 
     private Float price;
     private Date placeAt = new Date();
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
-    private List<OrderDoors> orderDoors = new ArrayList<>();
-
-    public void addDoor(OrderDoors door) {
-        this.orderDoors.add(door);
-    }
+    @OneToOne(mappedBy = "order", cascade = CascadeType.ALL)
+    private OrderDoors orderDoors;
 }

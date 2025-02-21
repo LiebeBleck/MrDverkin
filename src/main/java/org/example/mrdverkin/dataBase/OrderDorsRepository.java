@@ -8,4 +8,7 @@ import java.util.List;
 public interface OrderDorsRepository extends JpaRepository<OrderDoors,Long> {
     @Query("select door from OrderDoors")
     List<Door> findAllDoors();
+    @Query("SELECT o FROM OrderDoors o ORDER BY o.id DESC LIMIT 1")
+    OrderDoors findLastOrderDoors();
+
 }
