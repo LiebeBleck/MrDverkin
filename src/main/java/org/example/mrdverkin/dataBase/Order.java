@@ -37,6 +37,6 @@ public class Order {
     private Float price;
     private Date placeAt = new Date();
 
-    @OneToOne(mappedBy = "order", cascade = CascadeType.ALL)
-    private OrderDoors orderDoors;
+    @OneToOne(cascade = CascadeType.ALL)
+    private OrderDoorsDoor orderDoors;
 }

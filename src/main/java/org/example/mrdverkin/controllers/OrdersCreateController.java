@@ -18,13 +18,13 @@ import java.util.List;
 @RequestMapping("/orders")
 public class OrdersCreateController {
     @Autowired
-    private OrderDorsRepository orderDorsRepository;
+    private OrderDoorsDoorRepository orderDoorsDoorRepository;
     @Autowired
     private OrderRepository orderRepository;
 
     @GetMapping("/create")
     public String createOrder(Model model) {
-        List<Door> doors = orderDorsRepository.findAllDoors();
+        List<Door> doors = orderDoorsDoorRepository.findAllDoors();
         model.addAttribute("order", new Order());  // Добавляем пустой заказ
         model.addAttribute("doors", doors);
         return "create";
@@ -40,8 +40,8 @@ public class OrdersCreateController {
         if (errors.hasErrors()) {
             return "create";
         }
-        OrderDoors lastOrderDoors =orderDorsRepository.findLastOrderDoors();
-        lastOrderDoors.setOrder(order);
+        OrderDoorsDoor lastOrderDoors =orderDoorsDoorRepository.findLastOrderDoors();
+        order.setOrderDoors(lastOrderDoors);
         order.setOrderDoors(lastOrderDoors);
         orderRepository.save(order);
         sessionStatus.setComplete();
