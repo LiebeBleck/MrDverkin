@@ -8,7 +8,7 @@ class MrDverkinApplicationTests {
 
     @Test
     void contextLoads() {
-        cout("сcocal")
+        fmt.Println("как у тебя дела")
     }
 
 }
