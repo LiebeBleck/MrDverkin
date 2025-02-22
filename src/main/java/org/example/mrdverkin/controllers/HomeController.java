@@ -17,6 +17,7 @@ public class HomeController {
     @GetMapping("/home")
     public String home(Model model) {
         List<Order> orders = orderRepository.findOrdersOlderThan7Days();
+        System.out.println("test");
         model.addAttribute("orders", orders);
         return "home";
     }
