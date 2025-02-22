@@ -8,7 +8,6 @@ class MrDverkinApplicationTests {
 
     @Test
     void contextLoads() {
-        cout("сcocal")
     }
 
 }
