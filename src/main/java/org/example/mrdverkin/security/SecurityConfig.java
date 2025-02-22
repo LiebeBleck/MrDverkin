@@ -43,9 +43,12 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/orders").hasRole("SCOPE_writeOrders")
                         .anyRequest().authenticated()
                 )
+                .csrf(csrf -> csrf
+                        .disable()
+                )
                 .formLogin(form -> form
                         .loginPage("/login")
-                        .defaultSuccessUrl("/main", false)
+                        .defaultSuccessUrl("/main")
                         .failureUrl("/login?error=true")
                 )
                 .headers(headers -> headers
