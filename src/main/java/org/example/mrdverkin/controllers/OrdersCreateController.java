@@ -40,12 +40,11 @@ public class OrdersCreateController {
         if (errors.hasErrors()) {
             return "create";
         }
-        OrderDoorsDoor lastOrderDoors =orderDoorsDoorRepository.findLastOrderDoors();
+        OrderDoors lastOrderDoors =orderDoorsDoorRepository.findLastOrderDoors();
         order.setOrderDoors(lastOrderDoors);
         order.setOrderDoors(lastOrderDoors);
         orderRepository.save(order);
         sessionStatus.setComplete();
         return "done";
-//        return "redirect:/orders/create/done";
     }
 }

@@ -5,13 +5,9 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.ToString;
 import org.springframework.format.annotation.DateTimeFormat;
-
-import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 @Entity
 @Data
@@ -38,5 +34,5 @@ public class Order {
     private Date placeAt = new Date();
 
     @OneToOne(cascade = CascadeType.ALL)
-    private OrderDoorsDoor orderDoors;
+    private OrderDoors orderDoors;
 }

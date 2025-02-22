@@ -8,14 +8,13 @@ import java.util.List;
 
 @Data
 @Entity
-@Table(name = "order_doors_door")
-public class OrderDoorsDoor {
+@Table(name = "order_doors")
+public class OrderDoors {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToMany(cascade = CascadeType.ALL)
-//    @JoinColumn(name = "door_id", nullable = false)
     private List<Door> door = new ArrayList<>();
 
     @ElementCollection
