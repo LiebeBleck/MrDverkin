@@ -4,16 +4,36 @@
     padding: 0;
 }
 
+header {
+    background-color: #2d6a4f;
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
+}
 
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f9;
-    margin: 0;
+
+header img {
+    width: 150px;
+    margin-bottom: 10px;
+}
+
+nav ul {
+    list-style-type: none;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
     padding: 0;
 }
 
-h1, h3 {
-    color: #2c3e50;
+nav a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+nav a:hover {
+    color: #98c9a3;
 }
 
 .form-container {
@@ -24,12 +44,6 @@ h1, h3 {
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     margin-top: 30px;
-}
-
-label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
 }
 
 input[type="text"], input[type="number"], input[type="email"], input[type="date"], input[type="time"], select {
