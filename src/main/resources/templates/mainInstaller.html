@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en" xmlns:th="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+  <link rel="stylesheet" href="../static/style/style.css">
+</head>
+<body>
+  <header>
+    <img width="200" height="100" src="../static/logo-v4-2.svg" alt="Логотип компании">
+    <nav>
+      <ul>
+        <li><a href="/">Главная</a></li>
+        <li><a href="/listOrders">Заказы</a></li>
+        <li><a href="/profile">Мой профиль</a></li>
+        <li><a href="/logout">Выход</a></li>
+      </ul>
+    </nav>
+  </header>
+  <table border="1">
+    <thead>
+    <tr>
+      <th>ID заказа</th>
+      <th>ФИО</th>
+      <th>Адресс доставки</th>
+      <th>Номер</th>
+      <th>Email</th>
+      <th>Дата и время</th>
+      <th>Стоимость</th>
+      <th>Двери</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- Перебор всех заказов -->
+    <th:block>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td ></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </th:block>
+    </tbody>
+  </table>
+
+  <label for="dateOrdered">Дата доставки: </label>
+  <input type="date" id="dateOrdered"  required>
+  <div class="error-message"></div>
+</body>
+</html>
