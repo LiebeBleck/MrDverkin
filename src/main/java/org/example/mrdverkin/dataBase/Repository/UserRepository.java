@@ -1,6 +1,6 @@
 package org.example.mrdverkin.dataBase.Repository;
 
-import org.example.mrdverkin.dataBase.User;
+import org.example.mrdverkin.dataBase.Entitys.User;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

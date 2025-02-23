@@ -1,4 +1,4 @@
-package org.example.mrdverkin.dataBase;
+package org.example.mrdverkin.dataBase.Entitys;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -26,10 +26,16 @@ public class Order {
 
     @NotNull(message = "Время доставки должно быть указано")
     @DateTimeFormat(pattern = "HH:mm")
-    private LocalTime timeOrder;;
+    private LocalTime timeOrder;
 
     private Date placeAt = new Date();
 
     @NotNull(message = "Колличество дверей не указано")
     private int quantity;
+
+    @ManyToOne
+    private User user;
+
+    @ManyToOne
+    private Installer installer;
 }

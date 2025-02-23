@@ -22,6 +22,8 @@ public class CustomSuccessHandler implements AuthenticationSuccessHandler {
             response.sendRedirect("/home/seller");
         } else if (authorities.contains(new SimpleGrantedAuthority("ROLE_MainInstaller"))) {
             response.sendRedirect("/home/mainInstaller");
+        } else if (authorities.contains(new SimpleGrantedAuthority("ROLE_ADMIN"))) {
+            response.sendRedirect("/home/adminPanel");
         } else {
             response.sendRedirect("/main"); // По умолчанию, если роль не совпадает
         }

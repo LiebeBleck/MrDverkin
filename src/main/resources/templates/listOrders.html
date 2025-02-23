@@ -9,28 +9,20 @@
 <table border="1">
   <thead>
   <tr>
-    <th>ID заказа</th>
     <th>ФИО</th>
     <th>Адресс доставки</th>
     <th>Номер</th>
-    <th>Email</th>
     <th>Дата и время</th>
-    <th>Стоимость</th>
-    <th>Двери</th>
   </tr>
   </thead>
   <tbody>
   <!-- Перебор всех заказов -->
-  <th:block th:each="order : ${orders}">
+  <th:block th:each="orderAttributes : ${orders}">
     <tr>
-      <td th:text="${order.id}"></td>
-      <td th:text="${order.fullName}"></td>
-      <td th:text="${order.address}"></td>
-      <td th:text="${order.phone}"></td>
-      <td th:text="${order.email}"></td>
-      <td th:text="${order.dateOrder} + 'в' + ${order.timeOrder}"></td>
-      <td th:text="${order.price}"></td>
-      <td th:text="${order.orderDoors}"></td>
+      <td th:text="${orderAttributes.fullName}"></td>
+      <td th:text="${orderAttributes.address}"></td>
+      <td th:text="${orderAttributes.phone}"></td>
+      <td th:text="${orderAttributes.dateOrder} + 'в' + ${orderAttributes.timeOrder}"></td>
     </tr>
   </th:block>
   </tbody>

@@ -1,7 +1,7 @@
 package org.example.mrdverkin.security;
 
 import lombok.Data;
-import org.example.mrdverkin.dataBase.User;
+import org.example.mrdverkin.dataBase.Entitys.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Set;

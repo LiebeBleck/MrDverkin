@@ -1,4 +1,4 @@
-package org.example.mrdverkin.dataBase;
+package org.example.mrdverkin.dataBase.Entitys;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -9,8 +9,9 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -29,6 +30,10 @@ public class User implements UserDetails {
     private final String fullName;
     private final String email;
     private final String phone;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Order> orders = new ArrayList<>();
+
 
     @ElementCollection(fetch = FetchType.EAGER) // Связь с таблицей ролей
     @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
