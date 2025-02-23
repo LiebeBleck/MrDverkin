@@ -1,7 +1,7 @@
 package org.example.mrdverkin.controllers;
 
 import jakarta.validation.Valid;
-import org.example.mrdverkin.dataBase.*;
+import org.example.mrdverkin.dataBase.Entitys.Order;
 import org.example.mrdverkin.dataBase.Repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

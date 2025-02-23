@@ -1,7 +1,7 @@
 package org.example.mrdverkin.security;
 
 import org.example.mrdverkin.dataBase.Repository.UserRepository;
-import org.example.mrdverkin.dataBase.User;
+import org.example.mrdverkin.dataBase.Entitys.User;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -39,6 +39,7 @@ public class SecurityConfig {
                         .requestMatchers("/main").permitAll()
                         .requestMatchers("/home/seller").hasRole("SELLER")
                         .requestMatchers("/home/mainInstaller").hasRole("MainInstaller")
+                        .requestMatchers("/home/admin").hasRole("ADMIN")
                         .requestMatchers("/style/**","/images/**","/**", "/login", "/register", "/h2-console/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/orders/create").hasAuthority("SCOPE_readOrders")
                         .requestMatchers(HttpMethod.POST, "/orders").hasRole("SCOPE_writeOrders")
@@ -57,7 +58,7 @@ public class SecurityConfig {
                 )
                 .logout(logout -> logout
                         .logoutUrl("/logout")
-                        .logoutSuccessUrl("/")
+                        .logoutSuccessUrl("/main")
                         .invalidateHttpSession(true)
                         .deleteCookies("JSESSIONID")
                 )
