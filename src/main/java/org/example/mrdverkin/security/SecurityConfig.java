@@ -37,7 +37,7 @@ public class SecurityConfig {
         return http
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/main").permitAll()
-                        .requestMatchers("/home").hasRole("SELLER")
+//                         .requestMatchers("/home").hasRole("SELLER")
                         .requestMatchers("/**", "/login", "/register", "/h2-console/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/orders/create").hasAuthority("SCOPE_readOrders")
                         .requestMatchers(HttpMethod.POST, "/orders").hasRole("SCOPE_writeOrders")
