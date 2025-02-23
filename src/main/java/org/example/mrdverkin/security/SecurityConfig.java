@@ -34,11 +34,11 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http,CustomSuccessHandler customSuccessHandler) throws Exception {
-        //adasdasdasdasdasdas
         return http
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/main").permitAll()
-                        .requestMatchers("/home").hasRole("SELLER")
+                        .requestMatchers("/home/seller").hasRole("SELLER")
+                        .requestMatchers("/home/mainInstaller").hasRole("MainInstaller")
                         .requestMatchers("/style/**","/images/**","/**", "/login", "/register", "/h2-console/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/orders/create").hasAuthority("SCOPE_readOrders")
                         .requestMatchers(HttpMethod.POST, "/orders").hasRole("SCOPE_writeOrders")
