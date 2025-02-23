@@ -11,11 +11,11 @@ public class HomeController {
     @Autowired
     private OrderRepository orderRepository;
 
-    @GetMapping("/home")
+    @GetMapping("/home/seller")
     public String home(Model model) {
 //        List<Order> orders = orderRepository.findOrdersOlderThan7Days();
 //        model.addAttribute("orders", orders);
-        return "home";
+        return "seller";
     }
 
     public String formatPhoneNumber(String phone) {

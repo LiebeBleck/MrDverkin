@@ -33,7 +33,7 @@ public class SecurityConfig {
     }
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain filterChain(HttpSecurity http,CustomSuccessHandler customSuccessHandler) throws Exception {
         //adasdasdasdasdasdas
         return http
                 .authorizeHttpRequests(authorize -> authorize
@@ -49,7 +49,7 @@ public class SecurityConfig {
                 )
                 .formLogin(form -> form
                         .loginPage("/login")
-                        .defaultSuccessUrl("/main")
+                        .successHandler(customSuccessHandler)
                         .failureUrl("/login?error=true")
                 )
                 .headers(headers -> headers
