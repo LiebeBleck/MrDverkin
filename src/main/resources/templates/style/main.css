@@ -1,0 +1,33 @@
+
+
+header {
+    background-color: #2d6a4f;
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
+}
+
+
+header img {
+    width: 150px;
+    margin-bottom: 10px;
+}
+
+nav ul {
+    list-style-type: none;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding: 0;
+}
+
+nav a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+nav a:hover {
+    color: #98c9a3;
+}
