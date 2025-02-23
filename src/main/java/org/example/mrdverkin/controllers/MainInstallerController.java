@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/home/mainInstaller")
-public class MainInstaller {
+public class MainInstallerController {
 
     @GetMapping
     public String mainInstaller(Model model) {
