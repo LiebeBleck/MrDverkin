@@ -31,10 +31,6 @@ public class User implements UserDetails {
     private final String email;
     private final String phone;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Order> orders = new ArrayList<>();
-
-
     @ElementCollection(fetch = FetchType.EAGER) // Связь с таблицей ролей
     @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
     @Column(name = "role")

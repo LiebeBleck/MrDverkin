@@ -34,8 +34,9 @@ public class Order {
     private int quantity;
 
     @ManyToOne
-    private User user;
+    private Installer installer;
 
     @ManyToOne
-    private Installer installer;
+    @JoinColumn(name = "user_id") // Внешний ключ на пользователя
+    private User user;
 }
