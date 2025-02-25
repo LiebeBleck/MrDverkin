@@ -1,6 +1,7 @@
 package org.example.mrdverkin.dataBase.Mapping;
 
 import lombok.Data;
+import org.example.mrdverkin.dataBase.Entitys.Installer;
 import org.example.mrdverkin.dataBase.Entitys.Order;
 import org.springframework.stereotype.Component;
 
@@ -17,6 +18,8 @@ public class OrderAttribute {
     private String phone;
     private LocalDate dateOrder;
     private LocalTime timeOrder;
+    private int quantity;
+    private String installerName;
 
     // Метод для преобразования Order в OrderAttribute
     public static OrderAttribute fromOrder(Order order) {

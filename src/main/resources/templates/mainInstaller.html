@@ -1,57 +1,79 @@
 <!doctype html>
-<html lang="en" xmlns:th="">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Заказы</title>
   <link rel="stylesheet" th:href="@{/style/style.css}">
+  <script>
+    function enableButton(orderId) {
+      document.getElementById('confirm-btn-' + orderId).disabled = false;
+    }
+
+    function confirmOrder(orderId) {
+      const selectedInstaller = document.getElementById('installer-' + orderId).value;
+      if (!selectedInstaller) return;
+
+      fetch('/confirmOrder', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ orderId: orderId, installer: selectedInstaller })
+      })
+              .then(response => {
+                if (response.ok) {
+                  document.getElementById('order-row-' + orderId).remove();
+                } else {
+                  alert('Ошибка при подтверждении заказа.');
+                }
+              });
+    }
+  </script>
 </head>
 <body>
-  <header class="header">
-    <img width="200" height="100" src="../static/logo-v4-2.svg" alt="Логотип компании">
-    <nav>
-      <ul>
-        <li><a href="/">Главная</a></li>
-        <li><a href="/listOrders">Заказы</a></li>
-        <li><a href="/profile">Мой профиль</a></li>
-        <li><a href="/logout">Выход</a></li>
-      </ul>
-    </nav>
-  </header>
-  <table border="1">
-    <thead>
-    <tr>
-      <th>ID заказа</th>
-      <th>ФИО</th>
-      <th>Адрес доставки</th>
-      <th>Номер</th>
-      <th>Email</th>
-      <th>Дата и время</th>
-      <th>Стоимость</th>
-      <th>Двери</th>
-    </tr>
-    </thead>
-    <tbody>
-    <!-- Перебор всех заказов -->
-    <th:block>
-      <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td ></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-    </th:block>
-    </tbody>
-  </table>
+<header class="header">
+  <img width="200" height="100" src="../static/logo-v4-2.svg" alt="Логотип компании">
+  <nav>
+    <ul>
+      <li><a href="/">Главная</a></li>
+      <li><a href="/listOrders">Заказы</a></li>
+      <li><a href="/profile">Мой профиль</a></li>
+      <li><a href="/logout">Выход</a></li>
+    </ul>
+  </nav>
+</header>
 
-  <label for="dateOrdered">Дата доставки: </label>
-  <input type="date" id="dateOrdered"  required>
-  <div class="error-message"></div>
+<table border="1">
+  <thead>
+  <tr>
+    <th>Адрес доставки</th>
+    <th>Номер</th>
+    <th>Дата и время</th>
+    <th>Колличество дверей</th>
+    <th>Установщик</th>
+    <th>Действие</th>
+  </tr>
+  </thead>
+  <tbody>
+  <!-- Перебор всех заказов -->
+  <tr th:each="order : ${orders}">
+    <td th:text="${order.address}"></td>
+    <td th:text="${order.phone}"></td>
+    <td th:text="${order.dateOrder} + ' в '   + ${order.timeOrder}"></td>
+    <td th:text="${order.quantity}"></td>
+    <td>
+      <select>
+        <option value="">Выберите установщика</option>
+        <option th:each="installer : ${installers}" th:value="${installer.fullName}" th:text="${installer.fullName}"></option>
+      </select>
+    </td>
+    <td>
+      <button>
+        Подтвердить заказ
+      </button>
+    </td>
+  </tr>
+  </tbody>
+</table>
 </body>
 </html>
