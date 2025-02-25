@@ -29,6 +29,7 @@ public class OrderAttribute {
         orderAttr.setPhone(order.getPhone());
         orderAttr.setDateOrder(order.getDateOrder());
         orderAttr.setTimeOrder(order.getTimeOrder());
+        orderAttr.setQuantity(order.getQuantity());
         return orderAttr;
     }
 
