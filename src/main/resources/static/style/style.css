@@ -117,3 +117,8 @@ footer .social-links a {
     margin: 0 10px;
     font-size: 20px;
 }
+
+h1 {
+    font-size: 32px;
+    font-family: Cormorant, sans-serif;
+}
