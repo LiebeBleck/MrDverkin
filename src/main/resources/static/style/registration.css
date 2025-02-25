@@ -1,0 +1,11 @@
+.registration {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 3px lightgreen solid;
+    width: 600px;
+    height: 800px;
+    padding: 10px;
+}
+
