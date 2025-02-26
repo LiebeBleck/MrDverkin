@@ -7,6 +7,42 @@
   <title>Заказы</title>
   <link rel="stylesheet" th:href="@{/style/style.css}">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pikaday/css/pikaday.css">
+  <script src="https://cdn.jsdelivr.net/npm/pikaday/pikaday.js"></script>
+
+  <script>
+    function enableButton(orderId) {
+      document.getElementById('confirm-btn-' + orderId).disabled = false;
+    }
+
+    function confirmOrder(orderId) {
+      const selectedInstaller = document.getElementById('installer-' + orderId).value;
+      if (!selectedInstaller) return;
+
+      fetch('/confirmOrder', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ orderId: orderId, installer: selectedInstaller })
+      })
+              .then(response => {
+                if (response.ok) {
+                  document.getElementById('order-row-' + orderId).remove();
+                } else {
+                  alert('Ошибка при подтверждении заказа.');
+                }
+              });
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+      let picker = new Pikaday({
+        field: document.getElementById('calendar'),
+        bound: false, // Чтобы календарь был всегда виден
+        position: { top: 0, left: 0 },
+        onSelect: function(date) {
+          document.getElementById('selected-date').innerText = "Выбранная дата: " + picker.toString();
+        }
+      });
+    });
+  </script>
 
 </head>
 <body>
@@ -60,6 +96,7 @@
   <b>Выберите дату:</b>
   <div id="calendar"></div>
 </div>
+
 <h2>Доступность дверей на неделю</h2>
 <table border="1">
   <thead>
