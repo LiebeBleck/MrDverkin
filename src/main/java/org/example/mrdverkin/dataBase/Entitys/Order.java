@@ -21,7 +21,7 @@ public class Order {
     private String phone;
     private String email;
 
-
+    @Column(name = "date_order")
     private LocalDate dateOrder;
 
     @NotNull(message = "Время доставки должно быть указано")

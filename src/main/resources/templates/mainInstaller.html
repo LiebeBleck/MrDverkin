@@ -68,7 +68,7 @@
       </select>
     </td>
     <td>
-      <button>
+      <button th:id="'confirm-btn-' + ${order.id}" onclick="confirmOrder(this.getAttribute('data-order-id'))" th:data-order-id="${order.id}" disabled>
         Подтвердить заказ
       </button>
     </td>
