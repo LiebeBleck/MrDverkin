@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 @Component
 @Data
 public class OrderAttribute {
+    private Long id;
     private String fullName;
     private String address;
     private String phone;
@@ -24,6 +25,7 @@ public class OrderAttribute {
     // Метод для преобразования Order в OrderAttribute
     public static OrderAttribute fromOrder(Order order) {
         OrderAttribute orderAttr = new OrderAttribute();
+        orderAttr.setId(order.getId());
         orderAttr.setFullName(order.getFullName());
         orderAttr.setAddress(order.getAddress());
         orderAttr.setPhone(order.getPhone());

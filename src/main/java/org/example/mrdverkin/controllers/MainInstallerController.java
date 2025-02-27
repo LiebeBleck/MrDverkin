@@ -6,6 +6,7 @@ import org.example.mrdverkin.dataBase.Mapping.OrderAttribute;
 import org.example.mrdverkin.dataBase.Repository.InstallerRepository;
 import org.example.mrdverkin.dataBase.Repository.OrderRepository;
 import org.example.mrdverkin.dto.DateAvailability;
+import org.example.mrdverkin.dto.SelectInstaller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.stereotype.Controller;
@@ -27,16 +28,16 @@ public class MainInstallerController {
     private InstallerRepository installerRepository;
 
     @ModelAttribute("selectInstaller")
-    public Installer selectInstaller() {
-        return new Installer();
+    public SelectInstaller selectInstaller() {
+        return new SelectInstaller();
     }
 
     @PostMapping()
-    public String adInstaller(@ModelAttribute Installer selectInstaller) {
-        orderRepository.updateInstaller(installerRepository.findByName(selectInstaller.getFullName()));
+    public String addInstaller(@ModelAttribute SelectInstaller selectInstaller) {
+        System.out.println(selectInstaller);
+//        orderRepository.updateInstaller(installerRepository.findByName(selectInstaller.getFullName()));
         return "redirect:/home/mainInstaller";
     }
-
 
 
     @GetMapping

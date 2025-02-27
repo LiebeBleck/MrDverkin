@@ -10,32 +10,54 @@
   <script src="https://cdn.jsdelivr.net/npm/pikaday/pikaday.js"></script>
 
   <script>
-    function enableButton(orderId) {
-      document.getElementById('confirm-btn-' + orderId).disabled = false;
-    }
-
     function confirmOrder(orderId) {
-      const selectedInstaller = document.getElementById('installer-' + orderId).value;
-      if (!selectedInstaller) return;
+      // Находим строку с этим заказом
+      const row = document.getElementById(`order-row-${orderId}`);
 
-      fetch('/confirmOrder', {
+      // Получаем данные из строки
+      const address = row.querySelector('#address').textContent;
+      const phone = row.querySelector('#phone').textContent;
+      const installerSelect = row.querySelector(`#installer-${orderId}`);
+      const selectedInstaller = installerSelect.value;
+
+      // Создаем объект с данными для отправки
+      const orderData = {
+        orderId: orderId,
+        address: address,
+        phone: phone,
+        installer: selectedInstaller
+      };
+
+      // Отправляем POST-запрос
+      fetch('/submitOrder', {  // Замените на ваш реальный URL endpoint'а
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ orderId: orderId, installer: selectedInstaller })
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(orderData)
       })
               .then(response => {
-                if (response.ok) {
-                  document.getElementById('order-row-' + orderId).remove();
-                } else {
-                  alert('Ошибка при подтверждении заказа.');
+                if (!response.ok) {
+                  throw new Error('Ошибка сети');
                 }
+                return response.json();
+              })
+              .then(data => {
+                console.log('Успех:', data);
+                alert('Заказ успешно подтвержден!');
+                // Опционально: отключаем кнопку или обновляем интерфейс
+                document.getElementById(`confirm-btn-${orderId}`).disabled = true;
+              })
+              .catch(error => {
+                console.error('Ошибка:', error);
+                alert('Произошла ошибка при подтверждении заказа');
               });
     }
 
     document.addEventListener("DOMContentLoaded", function() {
       let picker = new Pikaday({
         field: document.getElementById('calendar'),
-        bound: false, // Чтобы календарь был всегда виден
+        bound: false,
         position: { top: 0, left: 0 },
         onSelect: function(date) {
           document.getElementById('selected-date').innerText = "Выбранная дата: " + picker.toString();
@@ -44,17 +66,13 @@
     });
 
     function DisabledOff(selectElement) {
-      // Находим кнопку подтверждения в той же строке, что и выпадающий список
       const row = selectElement.closest('tr');
       const disabledBtn = row.querySelector('.btn-confirm');
 
-      // Включаем или отключаем кнопку в зависимости от выбранного значения
       if (selectElement.value !== "") {
         disabledBtn.disabled = false;
-        console.log(123);
       } else {
         disabledBtn.disabled = true;
-        console.log(321);
       }
     }
   </script>
@@ -75,38 +93,43 @@
 <table border="1">
   <thead>
   <tr>
+    <th>ID</th>
     <th>Адрес доставки</th>
     <th>Номер</th>
     <th>Дата и время</th>
-    <th>Колличество дверей</th>
+    <th>Количесто дверей</th>
     <th>Установщик</th>
     <th>Действие</th>
   </tr>
   </thead>
   <tbody>
-  <!-- Перебор всех заказов -->
-  <tr th:each="order, iterStat : ${orders}" id="order-row-${order.id}">
-    <td th:text="${order.address}"></td>
-    <td th:text="${order.phone}"></td>
+  <tr th:each="order : ${orders}" id="order-row-${order.id}">
+    <td th:text="${order.id}"></td>
+    <td id="address" th:text="${order.address}"></td>
+    <td id="phone" th:text="${order.phone}"></td>
     <td th:text="${order.dateOrder} + ' в ' + ${order.timeOrder}"></td>
     <td th:text="${order.quantity}"></td>
 
-    <form method="POST" th:action="@{/home/mainInstaller}" th:object="${selectInstaller}" class="form-container">
-      <td>
-        <select class="worker-select" id="installer-${order.id}" data-order-id="${order.id}" onchange="DisabledOff(this)" th:field="*{fullName}">
-          <option value="">Выберите установщика</option>
-          <option th:each="installer : ${installers}" th:value="${installer.fullName}" th:text="${installer.fullName}"></option>
-        </select>
-      </td>
-      <td>
-        <button class="btn-confirm" id="confirm-btn-${order.id}" data-order-id="${order.id}" disabled type="submit">
-          Подтвердить заказ
-        </button>
-      </td>
-    </form>
+    <td>
+      <select class="worker-select" id="installer-${order.id}" onchange="DisabledOff(this)" data-order-id="${order.id}">
+        <option value="">Выберите установщика</option>
+        <option th:each="installer : ${installers}" th:value="${installer.fullName}" th:text="${installer.fullName}"></option>
+      </select>
+    </td>
+    <td>
+      <button class="btn-confirm"
+              id="confirm-btn-${order.id}"
+              data-order-id="${order.id}"
+              disabled
+              type="button"
+              onclick="confirmOrder('${order.id}')">
+        Подтвердить заказ
+      </button>
+    </td>
   </tr>
   </tbody>
 </table>
+
 
 <!-- Календарь -->
 <div style="margin-top: 20px;">

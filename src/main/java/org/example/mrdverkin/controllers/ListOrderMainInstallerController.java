@@ -23,6 +23,6 @@ public class ListOrderMainInstallerController {
         List<Order> ordes = orderRepository.findAll();
         List<OrderAttribute> orderAttributes = OrderAttribute.fromOrderList(ordes);
         model.addAttribute("orders", orderAttributes);
-        return "listOrdersSeller";
+        return "listOrdersMainInstaller";
     }
 }
