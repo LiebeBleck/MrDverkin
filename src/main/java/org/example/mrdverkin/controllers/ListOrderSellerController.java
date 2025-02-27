@@ -13,7 +13,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/listOrders")
-public class ListOrderController {
+public class ListOrderSellerController {
     @Autowired
     private OrderRepository orderRepository;
 
@@ -22,6 +22,6 @@ public class ListOrderController {
         List<Order> ordes = orderRepository.findAll();
         List<OrderAttribute> orderAttributes = OrderAttribute.fromOrderList(ordes);
         model.addAttribute("orders", orderAttributes);
-        return "listOrders";
+        return "listOrdersSeller";
     }
 }
