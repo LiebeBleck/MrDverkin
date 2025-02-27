@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.time.LocalDate;
@@ -23,6 +25,17 @@ public class MainInstallerController {
     private OrderRepository orderRepository;
     @Autowired
     private InstallerRepository installerRepository;
+
+    @ModelAttribute("selectInstaller")
+    public Installer selectInstaller() {
+        return new Installer();
+    }
+
+    @PostMapping("/home/mainInstaller")
+    public String adInstaller(@ModelAttribute Installer selectInstaller) {
+        System.out.println(selectInstaller);
+        return "redirect:/listOrders"; // Перенаправляем на страницу с заказами
+    }
 
 
 
@@ -39,6 +52,7 @@ public class MainInstallerController {
 
         List<OrderAttribute> orderAttributes = OrderAttribute.fromOrderList(ordes);
         model.addAttribute("orders", orderAttributes);
+        model.addAttribute("installers", installerRepository.findAll());
         model.addAttribute("availabilityList", availabilityList);
         return "mainInstaller";
     }

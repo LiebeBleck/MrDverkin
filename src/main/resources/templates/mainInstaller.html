@@ -92,24 +92,21 @@
     <td th:text="${order.phone}"></td>
     <td th:text="${order.dateOrder} + ' в ' + ${order.timeOrder}"></td>
     <td th:text="${order.quantity}"></td>
-    <td>
-      <select id="select-the-worker" onchange="DisabledOff()">
-        <option value="">Выберите установщика</option>
-        <option th:each="installer : ${installers}" th:value="${installer.fullName}" th:text="${installer.fullName}"></option>
-        <option value="worker1">Установщик 1</option>
-        <option value="worker2">Установщик 2</option>
-      </select>
 
-      <!--      <select>-->
-<!--       <option th:each="installer : ${installers}" th:value="${installer.fullName}" th:text="${installer.fullName}"></option>-->
-<!--        <option value="">Установщик 1</option>-->
-<!--      </select>-->
-    </td>
-    <td>
-      <button disabled id="btn-confirm" onclick="confirmOrder(this.getAttribute('data-order-id'))">
-        Подтвердить заказ
-      </button>
-    </td>
+    <form method="POST" th:action="@{/home/mainInstaller}" th:object="${selectInstaller}" class="form-container">
+      <td>
+        <select id="select-the-worker" onchange="DisabledOff()" th:field="*{fullName}">
+          <option value="">Выберите установщика</option>
+          <option th:each="installer : ${installers}" th:value="${installer.fullName}" th:text="${installer.fullName}"></option>
+        </select>
+      </td>
+      <td>
+        <button disabled id="btn-confirm" type="submit">
+          Подтвердить заказ
+        </button>
+      </td>
+    </form>
+
   </tr>
   </tbody>
 </table>
