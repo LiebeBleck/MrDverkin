@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <title>Список заказов</title>
+</head>
+<body>
+<h1>Список всех заказов</h1>
+<table border="1">
+  <thead>
+  <tr>
+    <th>Адресс доставки</th>
+    <th>Номер</th>
+    <th>Дата и время</th>
+    <th>Установщик</th>
+  </tr>
+  </thead>
+  <tbody>
+  <!-- Перебор всех заказов -->
+  <th:block th:each="orderAttributes : ${orders}">
+    <tr>
+      <td th:text="${orderAttributes.address}"></td>
+      <td th:text="${orderAttributes.phone}"></td>
+      <td th:text="${orderAttributes.dateOrder} + 'в' + ${orderAttributes.timeOrder}"></td>
+      <td th:text="${orderAttributes.installerName}"></td>
+    </tr>
+  </th:block>
+  </tbody>
+</table>
+</body>
+</html>
