@@ -10,22 +10,27 @@
   <script src="https://cdn.jsdelivr.net/npm/pikaday/pikaday.js"></script>
 
   <script>
+
     function confirmOrder(orderId) {
-      console.log('orderId:', orderId);
-      const row = document.getElementById(`order-row-${orderId}`);
-      const address = row.querySelector('#address').textContent;
-      const phone = row.querySelector('#phone').textContent;
-      const installerSelect = row.querySelector(`#installer-${orderId}`); // Исправлено
+      console.log(`order-row-${orderId}`);
+      let row = document.getElementById(`order-row-${orderId}`);
+      console.log(row)
+      if (!row) {
+        console.error(`Не удалось найти строку с ID order-row-${orderId}`);
+        alert('Ошибка: заказ с указанным ID не найден.');
+        return;
+      }
+
+      const installerSelect = row.querySelector(`#installer-${orderId}`);
       if (!installerSelect) {
         console.error(`Не удалось найти элемент с ID installer-${orderId}`);
         return;
       }
+
       const selectedInstaller = installerSelect.value;
 
       const orderData = {
         orderId: orderId,
-        address: address,
-        phone: phone,
         installer: selectedInstaller
       };
 
@@ -52,6 +57,9 @@
                 alert('Произошла ошибка при подтверждении заказа');
               });
     }
+
+
+
 
     document.addEventListener("DOMContentLoaded", function() {
       let picker = new Pikaday({
@@ -102,7 +110,7 @@
   </tr>
   </thead>
   <tbody>
-  <tr th:each="order : ${orders}" id="order-row-${order.id}">
+  <tr th:each="order : ${orders}" th:id="'order-row-' + ${order.id}">
     <td th:text="${order.id}"></td>
     <td id="address" th:text="${order.address}"></td>
     <td id="phone" th:text="${order.phone}"></td>
@@ -110,7 +118,7 @@
     <td th:text="${order.quantity}"></td>
 
     <td>
-      <select class="worker-select" id="installer-${order.id}" onchange="DisabledOff(this)" data-order-id="${order.id}">
+      <select class="worker-select" th:id="'installer-' + ${order.id}" onchange="DisabledOff(this)" data-order-id="${order.id}">
         <option value="">Выберите установщика</option>
         <option th:each="installer : ${installers}" th:value="${installer.fullName}" th:text="${installer.fullName}"></option>
       </select>
@@ -121,7 +129,7 @@
               data-order-id="${order.id}"
               disabled
               type="button"
-              onclick="confirmOrder(1)">
+              th:onclick="'confirmOrder(' + ${order.id} + ')'">
         Подтвердить заказ
       </button>
     </td>
