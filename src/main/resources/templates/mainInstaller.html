@@ -44,22 +44,20 @@
     });
 
     function DisabledOff(selectElement) {
-      let row = selectElement.closest('tr');
-      let disabledBtn = row.querySelector('.btn-confirm');
+      // Находим кнопку подтверждения в той же строке, что и выпадающий список
+      const row = selectElement.closest('tr');
+      const disabledBtn = row.querySelector('.btn-confirm');
 
+      // Включаем или отключаем кнопку в зависимости от выбранного значения
       if (selectElement.value !== "") {
         disabledBtn.disabled = false;
-        console.log(123)
-      }else {
+        console.log(123);
+      } else {
         disabledBtn.disabled = true;
-        console.log(321)
+        console.log(321);
       }
     }
-
-
-
   </script>
-
 </head>
 <body>
 <header class="header">
@@ -87,7 +85,7 @@
   </thead>
   <tbody>
   <!-- Перебор всех заказов -->
-  <tr th:each="order : ${orders}">
+  <tr th:each="order, iterStat : ${orders}" id="order-row-${order.id}">
     <td th:text="${order.address}"></td>
     <td th:text="${order.phone}"></td>
     <td th:text="${order.dateOrder} + ' в ' + ${order.timeOrder}"></td>
@@ -95,18 +93,17 @@
 
     <form method="POST" th:action="@{/home/mainInstaller}" th:object="${selectInstaller}" class="form-container">
       <td>
-        <select id="worker-select" data-order-id="${order.id}" onchange="DisabledOff(this)" th:field="*{fullName}">
+        <select class="worker-select" id="installer-${order.id}" data-order-id="${order.id}" onchange="DisabledOff(this)" th:field="*{fullName}">
           <option value="">Выберите установщика</option>
           <option th:each="installer : ${installers}" th:value="${installer.fullName}" th:text="${installer.fullName}"></option>
         </select>
       </td>
       <td>
-        <button disabled id="btn-confirm" type="submit">
+        <button class="btn-confirm" id="confirm-btn-${order.id}" data-order-id="${order.id}" disabled type="submit">
           Подтвердить заказ
         </button>
       </td>
     </form>
-
   </tr>
   </tbody>
 </table>
