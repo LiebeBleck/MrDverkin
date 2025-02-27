@@ -30,6 +30,9 @@ public class OrderAttribute {
         orderAttr.setDateOrder(order.getDateOrder());
         orderAttr.setTimeOrder(order.getTimeOrder());
         orderAttr.setQuantity(order.getQuantity());
+        if (order.getInstaller() != null) {
+            orderAttr.setInstallerName(order.getInstaller().getFullName());
+        }
         return orderAttr;
     }
 

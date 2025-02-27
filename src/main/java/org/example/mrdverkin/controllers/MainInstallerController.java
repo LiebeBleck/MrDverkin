@@ -31,17 +31,17 @@ public class MainInstallerController {
         return new Installer();
     }
 
-    @PostMapping("/home/mainInstaller")
+    @PostMapping()
     public String adInstaller(@ModelAttribute Installer selectInstaller) {
-        System.out.println(selectInstaller);
-        return "redirect:/listOrders"; // Перенаправляем на страницу с заказами
+        orderRepository.updateInstaller(installerRepository.findByName(selectInstaller.getFullName()));
+        return "redirect:/home/mainInstaller";
     }
 
 
 
     @GetMapping
     public String mainInstaller(Model model) {
-        List<Order> ordes = orderRepository.findAll();
+        List<Order> ordes = orderRepository.findByInstallerNull();
         LocalDate today = LocalDate.now();
         List<DateAvailability> availabilityList = new ArrayList<>();
         for (int i = 0; i < 7; i++ ){
