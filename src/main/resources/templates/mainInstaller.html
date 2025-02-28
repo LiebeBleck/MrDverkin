@@ -10,8 +10,7 @@
   <script src="https://cdn.jsdelivr.net/npm/pikaday/pikaday.js"></script>
 
   <script>
-
-    function confirmOrder(orderId) {
+    async function confirmOrder(orderId) {
       // Находим строку таблицы
       let row = document.getElementById(`order-row-${orderId}`);
       if (!row) {
@@ -53,7 +52,7 @@
       console.log('Отправляемые данные:', orderData);
 
       // Отправляем запрос на сервер
-      fetch('/home/mainInstaller', {
+    await fetch('/home/mainInstaller', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -102,10 +101,39 @@
       }
     }
   </script>
+  <style>
+    .mainInstaller_page{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      row-gap: 30px;
+    }
+
+    .calendar-div{
+      margin-top: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      row-gap: 20px;
+    }
+    .calendar-subtitle{
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    .pika-lendar{
+      width: 500px;
+      height: 210px;
+    }
+
+  </style>
 </head>
-<body>
+<body class="mainInstaller_page">
 <header class="header">
-  <img width="200" height="100" src="../static/logo-v4-2.svg" alt="Логотип компании">
+  <img width="200" height="100" th:src="@{/logo-v4-2.svg}" alt="Логотип компании">
   <nav>
     <ul>
       <li><a href="/">Главная</a></li>
@@ -129,6 +157,7 @@
   </tr>
   </thead>
   <tbody>
+
   <tr th:each="order : ${orders}" th:id="'order-row-' + ${order.id}">
     <td th:id= "id" th:text="${order.id}"></td>
     <td th:id="address" th:text="${order.address}"></td>
@@ -156,9 +185,11 @@
   </tbody>
 </table>
 <!-- Календарь -->
-<div style="margin-top: 20px;">
-  <b>Выберите дату:</b>
-  <div id="calendar"></div>
+<div class="calendar-div">
+  <p class="calendar-subtitle">Выберите дату:</p>
+  <div id="calendar">
+
+  </div>
 </div>
 
 <h2>Доступность дверей на неделю</h2>
@@ -176,5 +207,15 @@
   </tr>
   </tbody>
 </table>
+
+
+<footer style="position: relative">
+  <p>Контактная информация: info@doorscompany.com</p>
+  <p><a href="/privacy">Политика конфиденциальности</a> | <a href="/terms">Условия использования</a></p>
+  <div class="social-links">
+    <a href="https://mrdverkin.ru/">Каталог</a>
+    <a href="https://twitter.com">Twitter</a>
+  </div>
+</footer>
 </body>
 </html>

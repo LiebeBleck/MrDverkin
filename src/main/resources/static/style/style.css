@@ -9,6 +9,9 @@ header {
     color: #fff;
     padding: 20px 0;
     text-align: center;
+    display: flex;
+    width: 100%;
+    flex-direction: column;
 }
 
 
