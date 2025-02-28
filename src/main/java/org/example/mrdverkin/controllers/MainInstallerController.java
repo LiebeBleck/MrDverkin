@@ -10,10 +10,7 @@ import org.example.mrdverkin.dto.SelectInstaller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -33,9 +30,8 @@ public class MainInstallerController {
     }
 
     @PostMapping()
-    public String addInstaller(@ModelAttribute SelectInstaller selectInstaller) {
-        System.out.println(selectInstaller);
-//        orderRepository.updateInstaller(installerRepository.findByName(selectInstaller.getFullName()));
+    public String addInstaller(@RequestBody SelectInstaller selectInstaller) {
+        orderRepository.updateInstaller(installerRepository.findByName(selectInstaller.getInstallerFullName()),selectInstaller.getOrderId());
         return "redirect:/home/mainInstaller";
     }
 

@@ -6,6 +6,6 @@ import java.time.LocalDate;
 
 @Data
 public class SelectInstaller {
-    private Long id;
-    private String fullName;
+    private Long orderId;
+    private String installerFullName;
 }

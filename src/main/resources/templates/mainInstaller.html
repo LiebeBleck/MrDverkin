@@ -12,45 +12,64 @@
   <script>
 
     function confirmOrder(orderId) {
-      console.log(`order-row-${orderId}`);
+      // Находим строку таблицы
       let row = document.getElementById(`order-row-${orderId}`);
-      console.log(row)
       if (!row) {
         console.error(`Не удалось найти строку с ID order-row-${orderId}`);
         alert('Ошибка: заказ с указанным ID не найден.');
         return;
       }
 
+      // Находим элемент <select> с установщиком
       const installerSelect = row.querySelector(`#installer-${orderId}`);
       if (!installerSelect) {
         console.error(`Не удалось найти элемент с ID installer-${orderId}`);
+        alert('Ошибка: установщик не найден.');
         return;
       }
 
+      // Получаем выбранное значение из <select>
       const selectedInstaller = installerSelect.value;
+      if (!selectedInstaller) {
+        console.error('Установщик не выбран');
+        alert('Пожалуйста, выберите установщика.');
+        return;
+      }
 
+      // Находим ID заказа
+      const idElement = row.querySelector('#id');
+      if (!idElement) {
+        console.error('Не удалось найти элемент с ID id');
+        alert('Ошибка: ID заказа не найден.');
+        return;
+      }
+      const orderIdFromTable = idElement.textContent;
+
+      // Формируем данные для отправки
       const orderData = {
-        orderId: orderId,
-        installer: selectedInstaller
+        orderId: orderIdFromTable,         // ID заказа
+        installerFullName: selectedInstaller   // Выбранный установщик
       };
+      console.log('Отправляемые данные:', orderData);
 
+      // Отправляем запрос на сервер
       fetch('/home/mainInstaller', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'application/json'
         },
-        body: JSON.stringify(orderData)
+        body: JSON.stringify(orderData) // Преобразуем в JSON
       })
               .then(response => {
-                if (!response.ok) {
-                  throw new Error('Ошибка сети');
+                console.log('Статус ответа:', response.status);
+                if (!response.ok && response.status !== 302) {
+                  return response.text().then(text => {
+                    console.error('Тело ответа:', text);
+                    throw new Error(`Ошибка сервера: ${response.status}`);
+                  });
                 }
-                return response.json();
-              })
-              .then(data => {
-                console.log('Успех:', data);
-                alert('Заказ успешно подтвержден!');
-                document.getElementById(`confirm-btn-${orderId}`).disabled = true;
+                // Если статус 302, редирект произойдет автоматически
+                window.location.reload();
               })
               .catch(error => {
                 console.error('Ошибка:', error);
@@ -111,8 +130,8 @@
   </thead>
   <tbody>
   <tr th:each="order : ${orders}" th:id="'order-row-' + ${order.id}">
-    <td th:text="${order.id}"></td>
-    <td id="address" th:text="${order.address}"></td>
+    <td th:id= "id" th:text="${order.id}"></td>
+    <td th:id="address" th:text="${order.address}"></td>
     <td id="phone" th:text="${order.phone}"></td>
     <td th:text="${order.dateOrder} + ' в ' + ${order.timeOrder}"></td>
     <td th:text="${order.quantity}"></td>

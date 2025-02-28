@@ -18,8 +18,8 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
 
     @Modifying
     @Transactional
-    @Query(value = "UPDATE Order o set o.installer = :newInstaller where o.id = 1")
-    void updateInstaller(@Param("newInstaller") Installer installer);
+    @Query(value = "UPDATE Order o set o.installer = :newInstaller where o.id = :orderId")
+    void updateInstaller(@Param("newInstaller") Installer installer, @Param("orderId") Long orderId);
 
     @Query(value = "SELECT o FROM Order o WHERE o.installer IS null")
     List<Order> findByInstallerNull();
