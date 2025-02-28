@@ -40,6 +40,7 @@ public class OrdersCreateController {
         if (errors.hasErrors()) {
             return "create";
         }
+        order.setUser(user);
         orderRepository.save(order);
         userRepository.save(user);
         sessionStatus.setComplete();

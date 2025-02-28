@@ -3,6 +3,7 @@ package org.example.mrdverkin.dataBase.Repository;
 import lombok.Data;
 import org.example.mrdverkin.dataBase.Entitys.Installer;
 import org.example.mrdverkin.dataBase.Entitys.Order;
+import org.example.mrdverkin.dataBase.Entitys.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -23,4 +24,7 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
 
     @Query(value = "SELECT o FROM Order o WHERE o.installer IS null")
     List<Order> findByInstallerNull();
+
+    @Query(value = "SELECT o FROM Order o WHERE o.user = :actualUser")
+    List<Order> findOrdersByUser(@Param("actualUser") User user);
 }
