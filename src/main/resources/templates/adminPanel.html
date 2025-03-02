@@ -1,13 +1,75 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Список заказов</title>
+    <link rel="stylesheet" th:href="@{/style/style.css}">
+    <script>
+        function sortTable(columnIndex) {
+            const table = document.getElementById("ordersTable");
+            const rows = Array.from(table.rows).slice(1); // Пропускаем заголовок
+            let sortedRows = rows.sort((a, b) => {
+                let aValue = a.cells[columnIndex].innerText.trim();
+                let bValue = b.cells[columnIndex].innerText.trim();
+
+                // Преобразуем строки с числами
+                if (!isNaN(parseFloat(aValue)) && !isNaN(parseFloat(bValue))) {
+                    return parseFloat(aValue) - parseFloat(bValue);
+                }
+
+                // Сортировка строк
+                return aValue.localeCompare(bValue);
+            });
+
+            // Перезаполняем таблицу
+            table.tBodies[0].append(...sortedRows);
+        }
+
+        function searchSeller() {
+            let input = document.getElementById("sellerSearch").value.toLowerCase();
+            let rows = document.querySelectorAll("#ordersTable tbody tr");
+
+            rows.forEach(row => {
+                let seller = row.cells[4].innerText.toLowerCase();
+                if (seller.includes(input)) {
+                    row.style.display = "";
+                } else {
+                    row.style.display = "none";
+                }
+            });
+        }
+    </script>
 </head>
 <body>
+<h1>Список заказов</h1>
+
+<label for="sellerSearch">Поиск по продавцу:</label>
+<input type="text" id="sellerSearch" onkeyup="searchSeller()" placeholder="Введите имя продавца">
+
+<table border="1" id="ordersTable">
+    <thead>
+    <tr>
+        <th onclick="sortTable(0)">Дата доставки</th>
+        <th onclick="sortTable(1)">Количество дверей</th>
+        <th onclick="sortTable(2)">Адрес доставки</th>
+        <th onclick="sortTable(3)">Телефон</th>
+        <th onclick="sortTable(4)">Продавец</th>
+        <th onclick="sortTable(5)">Установщик</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="order : ${orders}">
+        <td th:text="${order.dateOrder}"></td>
+        <td th:text="${order.quantity}"></td>
+        <td th:text="${order.address}"></td>
+        <td th:text="${order.phone}"></td>
+        <td th:text="${order.userName}"></td>
+        <td th:text="${order.installerName}"></td>
+    </tr>
+    </tbody>
+</table>
 
 </body>
 </html>

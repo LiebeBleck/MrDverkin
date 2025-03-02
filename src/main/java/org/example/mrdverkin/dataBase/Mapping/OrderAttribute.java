@@ -21,6 +21,7 @@ public class OrderAttribute {
     private LocalTime timeOrder;
     private int quantity;
     private String installerName;
+    private String userName;
 
     // Метод для преобразования Order в OrderAttribute
     public static OrderAttribute fromOrder(Order order) {
@@ -32,6 +33,9 @@ public class OrderAttribute {
         orderAttr.setDateOrder(order.getDateOrder());
         orderAttr.setTimeOrder(order.getTimeOrder());
         orderAttr.setQuantity(order.getQuantity());
+        if (order.getUser() != null) {
+            orderAttr.setUserName(order.getUser().getFullName());
+        }
         if (order.getInstaller() != null) {
             orderAttr.setInstallerName(order.getInstaller().getFullName());
         }
