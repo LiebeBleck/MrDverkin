@@ -9,9 +9,16 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pikaday/css/pikaday.css">
   <script src="https://cdn.jsdelivr.net/npm/pikaday/pikaday.js"></script>
 
-  <script>
+  <script th:inline="javascript">
+    // Передаем данные о доступности из Thymeleaf
+    const availabilityData = /*[[${availabilityList}]]*/ [];
+    const availabilityMap = {};
+    availabilityData.forEach(day => {
+      availabilityMap[day.date] = day.availableDoors;
+    });
+    console.log('Availability Map:', availabilityMap);
+
     async function confirmOrder(orderId) {
-      // Находим строку таблицы
       let row = document.getElementById(`order-row-${orderId}`);
       if (!row) {
         console.error(`Не удалось найти строку с ID order-row-${orderId}`);
@@ -19,7 +26,6 @@
         return;
       }
 
-      // Находим элемент <select> с установщиком
       const installerSelect = row.querySelector(`#installer-${orderId}`);
       if (!installerSelect) {
         console.error(`Не удалось найти элемент с ID installer-${orderId}`);
@@ -27,7 +33,6 @@
         return;
       }
 
-      // Получаем выбранное значение из <select>
       const selectedInstaller = installerSelect.value;
       if (!selectedInstaller) {
         console.error('Установщик не выбран');
@@ -35,7 +40,6 @@
         return;
       }
 
-      // Находим ID заказа
       const idElement = row.querySelector('#id');
       if (!idElement) {
         console.error('Не удалось найти элемент с ID id');
@@ -44,20 +48,18 @@
       }
       const orderIdFromTable = idElement.textContent;
 
-      // Формируем данные для отправки
       const orderData = {
-        orderId: orderIdFromTable,         // ID заказа
-        installerFullName: selectedInstaller   // Выбранный установщик
+        orderId: orderIdFromTable,
+        installerFullName: selectedInstaller
       };
       console.log('Отправляемые данные:', orderData);
 
-      // Отправляем запрос на сервер
-    await fetch('/home/mainInstaller', {
+      await fetch('/home/mainInstaller', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(orderData) // Преобразуем в JSON
+        body: JSON.stringify(orderData)
       })
               .then(response => {
                 console.log('Статус ответа:', response.status);
@@ -67,7 +69,6 @@
                     throw new Error(`Ошибка сервера: ${response.status}`);
                   });
                 }
-                // Если статус 302, редирект произойдет автоматически
                 window.location.reload();
               })
               .catch(error => {
@@ -76,16 +77,34 @@
               });
     }
 
-
-
-
     document.addEventListener("DOMContentLoaded", function() {
       let picker = new Pikaday({
         field: document.getElementById('calendar'),
         bound: false,
         position: { top: 0, left: 0 },
         onSelect: function(date) {
-          document.getElementById('selected-date').innerText = "Выбранная дата: " + picker.toString();
+          document.getElementById('selected-date').innerText = "Выбранная дата: " + this.toString();
+        },
+        onDraw: function() {
+          const days = document.querySelectorAll('.pika-day');
+          days.forEach(dayElement => {
+            const year = dayElement.getAttribute('data-pika-year');
+            const month = String(Number(dayElement.getAttribute('data-pika-month')) + 1).padStart(2, '0');
+            const day = String(dayElement.getAttribute('data-pika-day')).padStart(2, '0');
+            const dateStr = `${year}-${month}-${day}`;
+            if (availabilityMap[dateStr] !== undefined) {
+              const availableDoors = availabilityMap[dateStr];
+              dayElement.innerHTML += `<br><small>${availableDoors} дв.</small>`;
+            }
+          });
+        },
+        disableDayFn: function(date) {
+          const year = date.getFullYear();
+          const month = String(date.getMonth() + 1).padStart(2, '0'); // getMonth() возвращает 0-11
+          const day = String(date.getDate()).padStart(2, '0');
+          const dateStr = `${year}-${month}-${day}`;
+          // Отключаем дату, если количество доступных дверей равно 0
+          return availabilityMap[dateStr] === 0;
         }
       });
     });
@@ -93,7 +112,6 @@
     function DisabledOff(selectElement) {
       const row = selectElement.closest('tr');
       const disabledBtn = row.querySelector('.btn-confirm');
-
       if (selectElement.value !== "") {
         disabledBtn.disabled = false;
       } else {
@@ -102,7 +120,7 @@
     }
   </script>
   <style>
-    .mainInstaller_page{
+    .mainInstaller_page {
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -110,8 +128,7 @@
       width: 100%;
       row-gap: 30px;
     }
-
-    .calendar-div{
+    .calendar-div {
       margin-top: 20px;
       display: flex;
       justify-content: center;
@@ -119,18 +136,17 @@
       flex-direction: column;
       row-gap: 20px;
     }
-    .calendar-subtitle{
+    .calendar-subtitle {
       font-size: 20px;
       font-weight: bold;
     }
-
-    .pika-lendar{
+    .pika-lendar {
       width: 500px;
       height: 210px;
     }
-
   </style>
 </head>
+
 <body class="mainInstaller_page">
 <header class="header">
   <img width="200" height="100" th:src="@{/logo-v4-2.svg}" alt="Логотип компании">
