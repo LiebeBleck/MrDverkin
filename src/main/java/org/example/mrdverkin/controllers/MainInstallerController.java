@@ -39,13 +39,7 @@ public class MainInstallerController {
     @GetMapping
     public String mainInstaller(Model model) {
         List<Order> ordes = orderRepository.findByInstallerNull();
-        LocalDate today = LocalDate.now();
-        List<DateAvailability> availabilityList = new ArrayList<>();
-        for (int i = 0; i < 14; i++ ){
-            DateAvailability availability = new DateAvailability(today, orderRepository.numberOfDoorsToInstallation(today));
-            availabilityList.add(availability);
-            today = today.plusDays(1);
-        }
+        List<DateAvailability> availabilityList = DateAvailability.fromDates(orderRepository);
 
         List<OrderAttribute> orderAttributes = OrderAttribute.fromOrderList(ordes);
         model.addAttribute("orders", orderAttributes);
