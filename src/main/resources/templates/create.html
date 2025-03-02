@@ -4,7 +4,10 @@
     <meta charset="UTF-8">
     <title>Заполните данные о заказе</title>
     <link rel="stylesheet" href="../static/style/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pikaday/1.8.2/css/pikaday.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pikaday/1.8.2/pikaday.min.js"></script>
 </head>
+
 <body>
 
 <form method="POST" th:action="@{/orders}" th:object="${order}" class="form-container">
@@ -31,14 +34,17 @@
     <h3>Укажите прочие данные</h3>
 
     <label for="dateOrdered">Дата доставки: </label>
-    <input type="date" id="dateOrdered" th:field="*{dateOrder}" required>
-    <div class="error-message" th:if="${#fields.hasErrors('dateOrder')}" th:errors="*{dateOrder}"></div>
+    <input readonly required type="text" id="dateOrdered" placeholder="Выбрать дату">
+    <input type="hidden" id="dateOrderedHidden">
+    <!--    <div class="error-message" th:if="${#fields.hasErrors('dateOrdered')}" th:errors="*{dateOrdered}"></div>-->
+
+
 
     <label for="timeOrdered">Время доставки: </label>
     <input type="time" id="timeOrdered" th:field="*{timeOrder}" required>
     <div class="error-message" th:if="${#fields.hasErrors('timeOrder')}" th:errors="*{timeOrder}"></div>
 
-    <label for="quantity">Колличество дверей</label>
+    <label for="quantity">Количество дверей</label>
     <input type="number" id="quantity" th:field="*{quantity}"required>
     <div class="error-message" th:if="${#fields.hasErrors('quantity')}" th:errors="*{quantity}">
 
@@ -52,36 +58,66 @@
 </form>
 
 <script>
-    const doorsSelect = document.getElementById("doors");
-    const doorCountInputs = document.getElementById("doorCountInputs");
+    // const doorsSelect = document.getElementById("doors");
+    // const doorCountInputs = document.getElementById("doorCountInputs");
+    //
+    // doorsSelect.addEventListener("change", function() {
+    //     const selectedDoors = Array.from(doorsSelect.selectedOptions);
+    //
+    //     doorCountInputs.innerHTML = "";  // Очищаем все предыдущие поля
+    //
+    //     selectedDoors.forEach(function(option) {
+    //         const doorId = option.value;
+    //         const doorName = option.text;
+    //
+    //         // Создаем поле для ввода количества
+    //         const doorItem = document.createElement("div");
+    //         doorItem.classList.add("door-item");
+    //
+    //         const label = document.createElement("label");
+    //         label.textContent = `Количество для двери "${doorName}": `;
+    //
+    //         const input = document.createElement("input");
+    //         input.type = "number";
+    //         input.name = `doorCounts[${doorId}]`;
+    //         input.min = "1";
+    //         input.value = "1";  // Начальное значение
+    //
+    //         doorItem.appendChild(label);
+    //         doorItem.appendChild(input);
+    //         doorCountInputs.appendChild(doorItem);
+    //     });
+    // });
 
-    doorsSelect.addEventListener("change", function() {
-        const selectedDoors = Array.from(doorsSelect.selectedOptions);
+    document.addEventListener("DOMContentLoaded", function () {
+        const elementCalendar = document.getElementById('dateOrdered');
+        const hiddenInput = document.getElementById('dateOrderedHidden');
 
-        doorCountInputs.innerHTML = "";  // Очищаем все предыдущие поля
-
-        selectedDoors.forEach(function(option) {
-            const doorId = option.value;
-            const doorName = option.text;
-
-            // Создаем поле для ввода количества
-            const doorItem = document.createElement("div");
-            doorItem.classList.add("door-item");
-
-            const label = document.createElement("label");
-            label.textContent = `Количество для двери "${doorName}": `;
-
-            const input = document.createElement("input");
-            input.type = "number";
-            input.name = `doorCounts[${doorId}]`;
-            input.min = "1";
-            input.value = "1";  // Начальное значение
-
-            doorItem.appendChild(label);
-            doorItem.appendChild(input);
-            doorCountInputs.appendChild(doorItem);
-        });
+        if (elementCalendar) {
+            const picker = new Pikaday({
+                field: elementCalendar,
+                format: "YYYY-MM-DD",
+                firstDay: 1,
+                minDate: new Date(2024, 0, 1),
+                maxDate: new Date(2025, 11, 31),
+                yearRange: [2023, 2030],
+                i18n: {
+                    previousMonth: "Предыдущий",
+                    nextMonth: "Следующий",
+                    months: ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"],
+                    weekdays: ["Воскресенье", "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"],
+                    weekdaysShort: ["Вс", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб"]
+                },
+                onSelect: function() {
+                    hiddenInput.value = this.getMoment().format('YYYY-MM-DD');
+                }
+            });
+        } else {
+            console.error("Элемент с id 'dateOrdered' не найден!");
+        }
     });
+
+
 </script>
 
 </body>
