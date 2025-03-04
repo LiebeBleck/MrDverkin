@@ -37,7 +37,7 @@ public class SecurityConfig {
         return http
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/main").permitAll()
-                        .requestMatchers("/home/seller").hasRole("SELLER")
+                        .requestMatchers("/home/seller","/orders/**").hasRole("SELLER")
                         .requestMatchers("/home/mainInstaller").hasRole("MainInstaller")
                         .requestMatchers("/home/admin").hasRole("ADMIN")
                         .requestMatchers("/style/**","/images/**","/**", "/login", "/register", "/h2-console/**").permitAll()
@@ -47,6 +47,20 @@ public class SecurityConfig {
                 )
                 .csrf(csrf -> csrf
                         .disable()
+
+                )
+                .rememberMe(remember -> remember
+                        .tokenValiditySeconds(Integer.MAX_VALUE)
+                        .key("mrDverkin")
+                        .rememberMeParameter("rememberMe")
+                )
+                .sessionManagement(session -> session
+                        .maximumSessions(1) // Один юзер — одна сессия
+                        .expiredUrl("/login?expired=true") // Если сессия истекла — кидает на логин
+                )
+                .sessionManagement(session -> session
+                        .sessionFixation().migrateSession() // Новая сессия при каждой авторизации
+                        .invalidSessionUrl("/login") // Если сессия стала невалидной
                 )
                 .formLogin(form -> form
                         .loginPage("/login")
