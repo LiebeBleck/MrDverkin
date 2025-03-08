@@ -1,7 +1,6 @@
 package org.example.mrdverkin.dataBase.Mapping;
 
 import lombok.Data;
-import org.example.mrdverkin.dataBase.Entitys.Installer;
 import org.example.mrdverkin.dataBase.Entitys.Order;
 import org.springframework.stereotype.Component;
 
@@ -18,8 +17,8 @@ public class OrderAttribute {
     private String address;
     private String phone;
     private LocalDate dateOrder;
-    private LocalTime timeOrder;
-    private int quantity;
+    private int frontDoorQuantity;
+    private int inDoorQuantity;
     private String installerName;
     private String userName;
 
@@ -31,8 +30,8 @@ public class OrderAttribute {
         orderAttr.setAddress(order.getAddress());
         orderAttr.setPhone(order.getPhone());
         orderAttr.setDateOrder(order.getDateOrder());
-        orderAttr.setTimeOrder(order.getTimeOrder());
-        orderAttr.setQuantity(order.getQuantity());
+        orderAttr.setFrontDoorQuantity(order.getFrontDoorQuantity());
+        orderAttr.setInDoorQuantity(order.getInDoorQuantity());
         if (order.getUser() != null) {
             orderAttr.setUserName(order.getUser().getFullName());
         }

@@ -47,7 +47,7 @@ public class OrdersCreateController {
         if (errors.hasErrors()) {
             return "create";
         }
-        if (orderRepository.numberOfDoorsToInstallation(order.getDateOrder()) == 0) {
+        if ((orderRepository.numberOfFrontDoorsToInstallation(order.getDateOrder()) - order.getFrontDoorQuantity()) <= 0 || (orderRepository.numberOfInDoorsToInstallation(order.getDateOrder()) - order.getInDoorQuantity()) <= 0) {
             return "create";
         }
             order.setUser(user);

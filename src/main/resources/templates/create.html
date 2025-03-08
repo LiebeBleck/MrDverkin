@@ -27,9 +27,9 @@
     <input type="number" id="phoneDelivery" th:field="*{phone}" required pattern="\d{10}" title="Must be 10 digits">
     <div class="error-message" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></div>
 
-    <label for="email">Email: </label>
-    <input type="email" id="email" th:field="*{email}" required>
-    <div class="error-message" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+    <label for="messageSeller">Комментарий: </label>
+    <input type="text" id="messageSeller" th:field="*{messageSeller}" required>
+    <div class="error-message" th:if="${#fields.hasErrors('messageSeller')}" th:errors="*{messageSeller}"></div>
 
     <h3>Укажите прочие данные</h3>
 
@@ -37,13 +37,13 @@
     <input readonly required type="text" id="dateOrdered" placeholder="Выбрать дату" th:field="*{dateOrder}">
     <div class="error-message" th:if="${#fields.hasErrors('dateOrder')}" th:errors="*{dateOrder}"></div>
 
-    <label for="timeOrdered">Время доставки: </label>
-    <input type="time" id="timeOrdered" th:field="*{timeOrder}" required>
-    <div class="error-message" th:if="${#fields.hasErrors('timeOrder')}" th:errors="*{timeOrder}"></div>
+    <label for="frontDoorQuantity">Количество входных дверей</label>
+    <input type="number" id="frontDoorQuantity" th:field="*{frontDoorQuantity}" required>
+    <div class="error-message" th:if="${#fields.hasErrors('frontDoorQuantity')}" th:errors="*{frontDoorQuantity}"></div>
 
-    <label for="quantity">Количество дверей</label>
-    <input type="number" id="quantity" th:field="*{quantity}" required>
-    <div class="error-message" th:if="${#fields.hasErrors('quantity')}" th:errors="*{quantity}"></div>
+    <label for="inDoorQuantity">Количество межкомнатных дверей</label>
+    <input type="number" id="inDoorQuantity" th:field="*{inDoorQuantity}" required>
+    <div class="error-message" th:if="${#fields.hasErrors('inDoorQuantity')}" th:errors="*{inDoorQuantity}"></div>
 
     <input type="submit" value="Подтвердить заказ"/>
 </form>
@@ -52,7 +52,7 @@
     const availabilityData = /*[[${availabilityList}]]*/ [];
     const availabilityMap = {};
     availabilityData.forEach(day => {
-        availabilityMap[day.date] = day.availableDoors;
+        availabilityMap[day.date] = day.frontDoorQuantity;
     });
     console.log('Availability Map:', availabilityMap);
 

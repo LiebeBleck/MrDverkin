@@ -1,6 +1,5 @@
 package org.example.mrdverkin.dataBase.Repository;
 
-import lombok.Data;
 import org.example.mrdverkin.dataBase.Entitys.Installer;
 import org.example.mrdverkin.dataBase.Entitys.Order;
 import org.example.mrdverkin.dataBase.Entitys.User;
@@ -14,8 +13,11 @@ import java.time.LocalDate;
 import java.util.List;
 
 public interface OrderRepository extends JpaRepository<Order, Long> {
-    @Query("SELECT 70 - COALESCE(SUM(o.quantity), 0) FROM Order o WHERE o.dateOrder = :data")
-    int numberOfDoorsToInstallation(@Param("data") LocalDate data);
+    @Query("SELECT 70 - COALESCE(SUM(o.inDoorQuantity), 0) FROM Order o WHERE o.dateOrder = :data")
+    int numberOfInDoorsToInstallation(@Param("data") LocalDate data);
+
+    @Query("SELECT 2 - COALESCE(SUM(o.frontDoorQuantity), 0) FROM Order o WHERE o.dateOrder = :data")
+    int numberOfFrontDoorsToInstallation(@Param("data") LocalDate data);
 
     @Modifying
     @Transactional

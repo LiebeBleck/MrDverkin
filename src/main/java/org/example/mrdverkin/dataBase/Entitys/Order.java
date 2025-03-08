@@ -19,19 +19,19 @@ public class Order {
     private String fullName;
     private String address;
     private String phone;
-    private String email;
+    private String messageSeller;
+    private String messageMainInstaller;
 
     @Column(name = "date_order")
     private LocalDate dateOrder;
 
-    @NotNull(message = "Время доставки должно быть указано")
-    @DateTimeFormat(pattern = "HH:mm")
-    private LocalTime timeOrder;
-
     private Date placeAt = new Date();
 
     @NotNull(message = "Колличество дверей не указано")
-    private int quantity;
+    @Column(name = "FRONTDOORQUANTITY")
+    private int frontDoorQuantity;
+    @Column(name = "INDOORQUANTITY")
+    private int inDoorQuantity;
 
     @ManyToOne
     private Installer installer;
