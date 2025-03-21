@@ -29,4 +29,5 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
 
     @Query(value = "SELECT o FROM Order o WHERE o.user = :actualUser")
     List<Order> findOrdersByUser(@Param("actualUser") User user);
+
 }

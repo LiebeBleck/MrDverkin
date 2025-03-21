@@ -1,7 +1,7 @@
-package org.example.mrdverkin.controllers;
+package org.example.mrdverkin.controllers.mainInstaller;
 
 import org.example.mrdverkin.dataBase.Entitys.Order;
-import org.example.mrdverkin.dataBase.Mapping.OrderAttribute;
+import org.example.mrdverkin.dto.OrderAttribute;
 import org.example.mrdverkin.dataBase.Repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

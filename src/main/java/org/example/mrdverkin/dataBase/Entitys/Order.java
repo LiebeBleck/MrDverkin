@@ -11,6 +11,11 @@ import java.util.Date;
 @Entity
 @Data
 @Table(name = "\"order\"")
+/**
+ * Класс сущность заказов
+ * @author Селявский Кирилл
+ * @version 1.0
+ */
 public class Order {
 
     @Id
@@ -30,6 +35,7 @@ public class Order {
     @NotNull(message = "Колличество дверей не указано")
     @Column(name = "FRONTDOORQUANTITY")
     private int frontDoorQuantity;
+
     @Column(name = "INDOORQUANTITY")
     private int inDoorQuantity;
 

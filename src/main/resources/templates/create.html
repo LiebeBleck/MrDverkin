@@ -38,12 +38,12 @@
     <div class="error-message" th:if="${#fields.hasErrors('dateOrder')}" th:errors="*{dateOrder}"></div>
 
     <label for="frontDoorQuantity">Количество входных дверей</label>
-    <input type="number" id="frontDoorQuantity" th:field="*{frontDoorQuantity}" required>
     <div class="error-message" th:if="${#fields.hasErrors('frontDoorQuantity')}" th:errors="*{frontDoorQuantity}"></div>
+    <input type="number" id="frontDoorQuantity" th:field="*{frontDoorQuantity}" required>
 
     <label for="inDoorQuantity">Количество межкомнатных дверей</label>
-    <input type="number" id="inDoorQuantity" th:field="*{inDoorQuantity}" required>
     <div class="error-message" th:if="${#fields.hasErrors('inDoorQuantity')}" th:errors="*{inDoorQuantity}"></div>
+    <input type="number" id="inDoorQuantity" th:field="*{inDoorQuantity}" required>
 
     <input type="submit" value="Подтвердить заказ"/>
 </form>

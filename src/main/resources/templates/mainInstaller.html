@@ -167,8 +167,11 @@
     <th>Адрес доставки</th>
     <th>Номер</th>
     <th>Дата и время</th>
-    <th>Количесто дверей</th>
+    <th>Количесто входных дверей</th>
+    <th>Количесто межкомнатных дверей</th>
     <th>Установщик</th>
+    <th>Коментарий продавца</th>
+    <th>Ваш коментарий</th>
     <th>Действие</th>
   </tr>
   </thead>
@@ -178,8 +181,9 @@
     <td th:id= "id" th:text="${order.id}"></td>
     <td th:id="address" th:text="${order.address}"></td>
     <td id="phone" th:text="${order.phone}"></td>
-    <td th:text="${order.dateOrder} + ' в ' + ${order.timeOrder}"></td>
-    <td th:text="${order.quantity}"></td>
+    <td th:text="${order.dateOrder}"></td>
+    <td th:text="${order.frontDoorQuantity}"></td>
+    <td th:text="${order.inDoorQuantity}"></td>
 
     <td>
       <select class="worker-select" th:id="'installer-' + ${order.id}" onchange="DisabledOff(this)" data-order-id="${order.id}">
@@ -187,6 +191,11 @@
         <option th:each="installer : ${installers}" th:value="${installer.fullName}" th:text="${installer.fullName}"></option>
       </select>
     </td>
+    <td th:text="${order.messageSeller}"></td>
+    <td>
+      <input type="text" />
+    </td>
+
     <td>
       <button class="btn-confirm"
               id="confirm-btn-${order.id}"
@@ -213,13 +222,15 @@
   <thead>
   <tr>
     <th>Дата</th>
-    <th>Доступные двери</th>
+    <th>Доступные входные двери</th>
+    <th>Доступные межкомнатные двери</th>
   </tr>
   </thead>
   <tbody>
   <tr th:each="day : ${availabilityList}">
     <td th:text="${day.date}"></td>
-    <td th:text="${day.availableDoors}"></td>
+    <td th:text="${day.frontDoorQuantity}"></td>
+    <td th:text="${day.inDoorQuantity}"></td>
   </tr>
   </tbody>
 </table>

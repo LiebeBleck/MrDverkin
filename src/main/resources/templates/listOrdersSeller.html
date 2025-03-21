@@ -12,7 +12,10 @@
     <th>ФИО</th>
     <th>Адресс доставки</th>
     <th>Номер</th>
-    <th>Дата и время</th>
+    <th>Дата</th>
+    <th>Колличество входных дверей</th>
+    <th>Колличество межкомнатныйх дверей</th>
+    <th>Ваш комментарий</th>
     <th>Установщик</th>
   </tr>
   </thead>
@@ -23,7 +26,10 @@
       <td th:text="${orderAttributes.fullName}"></td>
       <td th:text="${orderAttributes.address}"></td>
       <td th:text="${orderAttributes.phone}"></td>
-      <td th:text="${orderAttributes.dateOrder} + 'в' + ${orderAttributes.timeOrder}"></td>
+      <td th:text="${orderAttributes.dateOrder}"></td>
+      <td th:text="${orderAttributes.frontDoorQuantity}"></td>
+      <td th:text="${orderAttributes.inDoorQuantity}"></td>
+      <td th:text="${orderAttributes.messageSeller}"></td>
       <td th:text="${orderAttributes.installerName}"></td>
     </tr>
   </th:block>

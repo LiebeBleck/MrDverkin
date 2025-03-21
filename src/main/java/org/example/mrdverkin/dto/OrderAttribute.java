@@ -1,11 +1,10 @@
-package org.example.mrdverkin.dataBase.Mapping;
+package org.example.mrdverkin.dto;
 
 import lombok.Data;
 import org.example.mrdverkin.dataBase.Entitys.Order;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,7 +19,12 @@ public class OrderAttribute {
     private int frontDoorQuantity;
     private int inDoorQuantity;
     private String installerName;
+
+    private String messageSeller;
+    private String messageMainInstaller;
+
     private String userName;
+
 
     // Метод для преобразования Order в OrderAttribute
     public static OrderAttribute fromOrder(Order order) {
@@ -38,6 +42,8 @@ public class OrderAttribute {
         if (order.getInstaller() != null) {
             orderAttr.setInstallerName(order.getInstaller().getFullName());
         }
+        orderAttr.setMessageSeller(order.getMessageSeller());
+        orderAttr.setMessageMainInstaller(order.getMessageMainInstaller());
         return orderAttr;
     }
 

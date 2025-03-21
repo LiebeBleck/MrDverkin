@@ -1,11 +1,12 @@
-package org.example.mrdverkin.controllers;
+package org.example.mrdverkin.controllers.mainInstaller;
 
 import org.example.mrdverkin.dataBase.Entitys.Order;
-import org.example.mrdverkin.dataBase.Mapping.OrderAttribute;
+import org.example.mrdverkin.dto.OrderAttribute;
 import org.example.mrdverkin.dataBase.Repository.InstallerRepository;
 import org.example.mrdverkin.dataBase.Repository.OrderRepository;
 import org.example.mrdverkin.dto.DateAvailability;
 import org.example.mrdverkin.dto.SelectInstaller;
+import org.example.mrdverkin.services.MainInstallerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.stereotype.Controller;
@@ -15,24 +16,42 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/home/mainInstaller")
+/**
+ * Класс котроллер для главногоустановщика.
+ * @author Кирилл Селявский
+ * @version 1.0
+ */
 public class MainInstallerController {
     @Autowired
     private OrderRepository orderRepository;
     @Autowired
     private InstallerRepository installerRepository;
+    @Autowired
+    private MainInstallerService mainInstallerService;
 
     @ModelAttribute("selectInstaller")
     public SelectInstaller selectInstaller() {
         return new SelectInstaller();
     }
 
+    /**
+     * Метод для выбора установщика.
+     * @param selectInstaller
+     * @return редирект на /home/mainInstaller.
+     */
     @PostMapping()
     public String addInstaller(@RequestBody SelectInstaller selectInstaller) {
         orderRepository.updateInstaller(installerRepository.findByName(selectInstaller.getInstallerFullName()),selectInstaller.getOrderId());
+        mainInstallerService.sendMessage(orderRepository.findById(selectInstaller.getOrderId()).get());
+
         return "redirect:/home/mainInstaller";
     }
 
-
+    /**
+     * Метод возвращает темплейт mainInstaller.
+     * @param model
+     * @return mainInstaller.
+     */
     @GetMapping
     public String mainInstaller(Model model) {
         List<Order> ordes = orderRepository.findByInstallerNull();

@@ -1,4 +1,4 @@
-package org.example.mrdverkin.controllers;
+package org.example.mrdverkin.controllers.seller;
 
 import org.example.mrdverkin.dataBase.Repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
