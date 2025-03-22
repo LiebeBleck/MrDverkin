@@ -1,6 +1,9 @@
 package org.example.mrdverkin.services;
 
+import org.example.mrdverkin.dataBase.Entitys.Installer;
 import org.example.mrdverkin.dataBase.Entitys.Order;
+import org.example.mrdverkin.dataBase.Repository.InstallerRepository;
+import org.example.mrdverkin.dataBase.Repository.OrderRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +20,10 @@ import org.springframework.web.client.RestTemplate;
 public class MainInstallerService {
     @Autowired
     private RestTemplate restTemplate;
+    @Autowired
+    private OrderRepository orderRepository;
+    @Autowired
+    private InstallerRepository installerRepository;
 
     private static final Logger logger = LoggerFactory.getLogger(MainInstallerService.class);
 
@@ -25,6 +32,7 @@ public class MainInstallerService {
      * @param order заказ, содержащий информацию о номере телефона установщика и комментариях
      */
     public void sendMessage(Order order) {
+//        Order order = orderRepository.findByOrderId(id);
         try {
             String phoneNumber = order.getInstaller().getPhone();
             String message = "Вам назначен заказ по адресу: " + order.getAddress() +
