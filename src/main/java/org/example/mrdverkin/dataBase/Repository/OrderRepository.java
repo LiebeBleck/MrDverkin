@@ -30,4 +30,11 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     @Query(value = "SELECT o FROM Order o WHERE o.user = :actualUser")
     List<Order> findOrdersByUser(@Param("actualUser") User user);
 
+    @Query(value = "select O from Order O where O.id = :orderid")
+    Order findByOrderId(@Param("orderid")Long orderId);
+
+    @Modifying
+    @Transactional
+    @Query(value = "UPDATE Order o set o.messageMainInstaller = :commenet where o.id = :orderId")
+    void updateComment(@Param("orderId") Long id, @Param("commenet")String comment);
 }

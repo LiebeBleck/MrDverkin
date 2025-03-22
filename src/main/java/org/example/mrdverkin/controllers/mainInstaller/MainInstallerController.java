@@ -1,11 +1,11 @@
 package org.example.mrdverkin.controllers.mainInstaller;
 
 import org.example.mrdverkin.dataBase.Entitys.Order;
+import org.example.mrdverkin.dto.InstallerInfo;
 import org.example.mrdverkin.dto.OrderAttribute;
 import org.example.mrdverkin.dataBase.Repository.InstallerRepository;
 import org.example.mrdverkin.dataBase.Repository.OrderRepository;
 import org.example.mrdverkin.dto.DateAvailability;
-import org.example.mrdverkin.dto.SelectInstaller;
 import org.example.mrdverkin.services.MainInstallerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -30,19 +30,20 @@ public class MainInstallerController {
     private MainInstallerService mainInstallerService;
 
     @ModelAttribute("selectInstaller")
-    public SelectInstaller selectInstaller() {
-        return new SelectInstaller();
+    public InstallerInfo selectInstaller() {
+        return new InstallerInfo();
     }
 
     /**
      * Метод для выбора установщика.
-     * @param selectInstaller
+     * @param installerInfo
      * @return редирект на /home/mainInstaller.
      */
     @PostMapping()
-    public String addInstaller(@RequestBody SelectInstaller selectInstaller) {
-        orderRepository.updateInstaller(installerRepository.findByName(selectInstaller.getInstallerFullName()),selectInstaller.getOrderId());
-        mainInstallerService.sendMessage(orderRepository.findById(selectInstaller.getOrderId()).get());
+    public String addInstaller(@RequestBody InstallerInfo installerInfo) {
+        orderRepository.updateComment(installerInfo.getOrderId(),installerInfo.getInstallerComment());
+        orderRepository.updateInstaller(installerRepository.findByName(installerInfo.getInstallerFullName()),installerInfo.getOrderId());
+        mainInstallerService.sendMessage(orderRepository.findById(installerInfo.getOrderId()).get());
 
         return "redirect:/home/mainInstaller";
     }
