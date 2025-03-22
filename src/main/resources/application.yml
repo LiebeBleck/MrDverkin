@@ -1,4 +1,8 @@
 spring:
+  profiles:
+    active: prod
+
+
   logging:
     level:
       org.springframework.security: DEBUG
