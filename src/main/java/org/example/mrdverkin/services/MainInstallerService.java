@@ -19,10 +19,6 @@ import org.springframework.web.client.RestTemplate;
 public class MainInstallerService {
     @Autowired
     private RestTemplate restTemplate;
-    @Autowired
-    private OrderRepository orderRepository;
-    @Autowired
-    private InstallerRepository installerRepository;
 
     private static final Logger logger = LoggerFactory.getLogger(MainInstallerService.class);
 
