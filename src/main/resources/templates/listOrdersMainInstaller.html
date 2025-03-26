@@ -17,6 +17,7 @@
     <th>Ваш комментарий</th>
     <th>Комментарий продавца</th>
     <th>Установщик</th>
+    <th>Действия</th>
   </tr>
   </thead>
   <tbody>
@@ -31,6 +32,11 @@
       <td th:text="${orderAttributes.messageMainInstaller}"></td>
       <td th:text="${orderAttributes.messageSeller}"></td>
       <td th:text="${orderAttributes.installerName}"></td>
+      <td>
+        <a th:href="@{/edit/{id}(id=${orderAttributes.id})}">
+          <button>Изменить</button>
+        </a>
+      </td>
     </tr>
   </th:block>
   </tbody>

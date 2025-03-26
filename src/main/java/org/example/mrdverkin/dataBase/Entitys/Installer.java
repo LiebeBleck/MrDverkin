@@ -15,6 +15,7 @@ public class Installer {
     private Long id;
 
     private String fullName;
+    @Column(unique = true, nullable = false)
     private String phone;
 
     @OneToMany(mappedBy = "installer", cascade = CascadeType.ALL)

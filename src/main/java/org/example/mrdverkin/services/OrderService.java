@@ -50,7 +50,6 @@ public class OrderService {
             if (!bindingResult.hasErrors()) {
                 orderRepository.save(existingOrder); // Сохраняем изменения
             }
-            bindingResult.addError(new FieldError("order", "inDoorQuantity", "Превышен лимит межкомнатных дверей на этот день"));
         } else {
             throw new EntityNotFoundException("Заказ с ID " + id + " не найден");
         }

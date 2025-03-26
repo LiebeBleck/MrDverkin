@@ -21,14 +21,23 @@
   <input type="date" th:field="*{dateOrder}" th:value="${#temporals.format(dateOrder, 'yyyy-MM-dd')}" required /><br/>
 
   <label>Количество входных дверей:</label>
+  <div class="error-message" th:if="${#fields.hasErrors('frontDoorQuantity')}" th:errors="*{frontDoorQuantity}"></div>
   <input type="number" th:field="*{frontDoorQuantity}" min="0" required/><br/>
 
   <label>Количество межкомнатных дверей:</label>
+  <div class="error-message" th:if="${#fields.hasErrors('inDoorQuantity')}" th:errors="*{inDoorQuantity}"></div>
   <input type="number" th:field="*{inDoorQuantity}" min="0" required/><br/>
 
-  <label>Комментарий:</label>
+  <!-- Должен быть невиден если у пользователя роль ROLE_MainInstaller. -->
+  <label>Комментарий магазина:</label>
   <textarea th:field="*{messageSeller}"></textarea><br/>
 
+  <!-- Должен быть невиден если у пользователя роль ROLE_SELLER. -->
+  <label>Комментарий установщика:</label>
+  <textarea th:field="*{messageMainInstaller}"></textarea><br/>
+
+
+  <!-- Должен быть невиден если у пользователя роль ROLE_SELLER. Переделать в выпадающий список. -->
   <label>Установщик:</label>
   <input type="text" th:field="*{installerName}"/><br/>
 

@@ -33,7 +33,7 @@
       <td th:text="${orderAttributes.messageSeller}"></td>
       <td th:text="${orderAttributes.installerName}"></td>
       <td>
-        <a th:href="@{/orders/edit/{id}(id=${orderAttributes.id})}">
+        <a th:href="@{/edit/{id}(id=${orderAttributes.id})}">
           <button>Изменить</button>
         </a>
         <form th:action="@{/listOrdersSeller/delete/{id}(id=${orderAttributes.id})}" method="post" style="display:inline;">

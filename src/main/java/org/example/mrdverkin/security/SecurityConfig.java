@@ -37,8 +37,9 @@ public class SecurityConfig {
         return http
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/main").permitAll()
-                        .requestMatchers("/home/seller","/orders/**").hasRole("SELLER")
-                        .requestMatchers("/home/mainInstaller").hasRole("MainInstaller")
+                        .requestMatchers("/home/seller/**","/orders/**").hasRole("SELLER")
+                        .requestMatchers("/home/mainInstaller/**").hasRole("MainInstaller")
+                        .requestMatchers("edit/**").hasAnyRole("SELLER", "MainInstaller")
                         .requestMatchers("/home/admin").hasRole("ADMIN")
                         .requestMatchers("/style/**","/images/**","/**", "/login", "/register", "/h2-console/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/orders/create").hasAuthority("SCOPE_readOrders")
@@ -47,7 +48,6 @@ public class SecurityConfig {
                 )
                 .csrf(csrf -> csrf
                         .disable()
-
                 )
                 .rememberMe(remember -> remember
                         .tokenValiditySeconds(Integer.MAX_VALUE)
