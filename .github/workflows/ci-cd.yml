@@ -36,6 +36,10 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.PORT }}
           script: |
+            # Выводим публичный ключ для проверки
+            echo "Public key:"
+            echo "${{ secrets.SSH_PRIVATE_KEY }}" | ssh-keygen -y -f /dev/stdin
+
             echo "Starting deployment..."
             cd MrDverkin/   # Переход в каталог с проектом
             git pull origin master  # Обновление репозитория
