@@ -1,0 +1,44 @@
+name: Java CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main  # Запускать при пуше в ветку main
+  pull_request:
+    branches:
+      - main  # Также запускать при pull-request'ах в main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest  # Используем Ubuntu как рабочую среду
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2  # Загружаем код из репозитория
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v2
+        with:
+          java-version: '21'  # Указываем версию JDK 21
+          distribution: 'adoptopenjdk'  # Указываем дистрибутив JDK (можно использовать 'adoptopenjdk', если он поддерживает JDK 21)
+
+      - name: Build with Maven
+        run: mvn clean install  # Строим проект с помощью Maven
+
+      - name: Run tests
+        run: mvn test  # Запускаем тесты (если они есть)
+
+      # Можно добавить шаг для деплоя на сервер
+      - name: Deploy to Server
+        uses: appleboy/ssh-action@v0.1.2
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: ${{ secrets.PORT }}
+          script: |
+            cd MrDverkin/   # Переход в каталог с проектом
+            git pull origin main  # Обновление репозитория
+            mvn clean install     # Пересборка проекта
+            cp target/MrDverkin-0.0.1-SNAPSHOT.jar /path/to/deploy/  # Копирование .jar файла в нужную директорию
+            sudo systemctl restart my-app.service  # Перезапуск сервиса
