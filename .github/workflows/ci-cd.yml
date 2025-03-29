@@ -28,17 +28,22 @@ jobs:
       - name: Run tests
         run: mvn test  # Запускаем тесты (если они есть)
 
-      # Можно добавить шаг для деплоя на сервер
       - name: Deploy to Server
         uses: appleboy/ssh-action@v0.1.2
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
-          key: ${{ secrets.SSH_PRIVATE_KEY}}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.PORT }}
           script: |
+            echo "Starting deployment..."
             cd MrDverkin/   # Переход в каталог с проектом
             git pull origin master  # Обновление репозитория
+            if [ $? -ne 0 ]; then echo "git pull failed!"; exit 1; fi  # Проверка успешности команды
             mvn clean install     # Пересборка проекта
+            if [ $? -ne 0 ]; then echo "Maven build failed!"; exit 1; fi  # Проверка успешности сборки
             cp target/MrDverkin-0.0.1-SNAPSHOT.jar /path/to/deploy/  # Копирование .jar файла в нужную директорию
+            if [ $? -ne 0 ]; then echo "Copying JAR file failed!"; exit 1; fi  # Проверка успешности копирования
             sudo systemctl restart my-app.service  # Перезапуск сервиса
+            if [ $? -ne 0 ]; then echo "Service restart failed!"; exit 1; fi  # Проверка успешности перезапуска
+            echo "Deployment successful!"
