@@ -1,19 +1,22 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="ru" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
   <meta charset="UTF-8">
   <title>Список заказов</title>
+  <link rel="stylesheet" href="/style/orderList.css">
 </head>
+
 <body>
 <h1>Список всех заказов</h1>
-<table border="1">
+<a class="button" href="http://localhost:8080/home/mainInstaller">Основная страница</a>
+<table>
   <thead>
   <tr>
-    <th>Адресс доставки</th>
+    <th>Адрес</th>
     <th>Номер</th>
     <th>Дата</th>
-    <th>Колличество входных дверей</th>
-    <th>Колличество межкомнатныйх дверей</th>
+    <th>Вход. двери</th>
+    <th>Мк. двери</th>
     <th>Ваш комментарий</th>
     <th>Комментарий продавца</th>
     <th>Установщик</th>
@@ -21,7 +24,6 @@
   </tr>
   </thead>
   <tbody>
-  <!-- Перебор всех заказов -->
   <th:block th:each="orderAttributes : ${orders}">
     <tr>
       <td th:text="${orderAttributes.address}"></td>

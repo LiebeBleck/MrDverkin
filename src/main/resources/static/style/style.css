@@ -1,19 +1,24 @@
-*{
+* {
     box-sizing: border-box;
     margin: 0 auto;
     padding: 0;
 }
 
+body {
+    background-color: #E9D6C7;
+    color: #4E3629;
+    font-family: Arial, sans-serif;
+}
+
 header {
-    background-color: #2d6a4f;
-    color: #fff;
+    background-color: #4E3629;
+    color: #E9D6C7;
     padding: 20px 0;
     text-align: center;
     display: flex;
     width: 100%;
     flex-direction: column;
 }
-
 
 header img {
     width: 150px;
@@ -29,76 +34,51 @@ nav ul {
 }
 
 nav a {
-    color: #fff;
+    color: #E9D6C7;
     text-decoration: none;
     font-weight: bold;
     transition: color 0.3s ease;
 }
 
 nav a:hover {
-    color: #98c9a3;
+    color: #C0A28E;
 }
 
-.form-container {
-    width: 50%;
-    margin: 0 auto;
-    background-color: #fff;
+.orders {
+    width: 80%;
+    margin: 30px auto;
+    background: #FFF;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin-top: 30px;
 }
 
-input[type="text"], input[type="number"], input[type="email"], input[type="date"], input[type="time"], select {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+.orders h2 {
+    color: #4E3629;
 }
 
-input[type="submit"] {
-    background-color: #27ae60;
+button {
+    background-color: #4E3629;
     color: white;
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
-    width: 100%;
 }
 
-input[type="submit"]:hover {
-    background-color: #2ecc71;
+button a {
+    text-decoration: none;
+    color: white;
 }
 
-.door-selection {
-    margin-top: 20px;
+button:hover {
+    background-color: #3B2B1E;
 }
-
-.door-counts input {
-    width: 60px;
-    display: inline-block;
-    margin-left: 10px;
-}
-
-.door-item {
-    margin-bottom: 10px;
-}
-
-.door-item label {
-    margin-bottom: 0;
-}
-
-.error-message {
-    color: red;
-    font-size: 12px;
-}
-
 
 footer {
-    background-color: #2d6a4f;
-    color: #fff;
+    background-color: #4E3629;
+    color: #E9D6C7;
     text-align: center;
     padding: 20px;
     position: fixed;
@@ -107,21 +87,11 @@ footer {
 }
 
 footer a {
-    color: #98c9a3;
+    color: #C0A28E;
     text-decoration: none;
     margin: 0 10px;
 }
 
 footer a:hover {
-    color: #fff;
-}
-
-footer .social-links a {
-    margin: 0 10px;
-    font-size: 20px;
-}
-
-h1 {
-    font-size: 32px;
-    font-family: Cormorant, sans-serif;
+    color: white;
 }
