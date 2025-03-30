@@ -1,191 +1,65 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
     <meta charset="UTF-8">
 <head>
     <title>Войти</title>
+    <link rel="stylesheet" th:href="@{/style/style.css}">
+    <link rel="stylesheet" th:href="@{/style/login.css}">
 </head>
-    <style>
-        *{
-            box-sizing: border-box;
-            margin: 0 auto;
-            padding: 0;
-        }
-
-        header {
-            background-color: #2d6a4f;
-            color: #fff;
-            padding: 20px 0;
-            text-align: center;
-        }
-
-
-        header img {
-            width: 150px;
-            margin-bottom: 10px;
-        }
-
-        nav ul {
-            list-style-type: none;
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            padding: 0;
-        }
-
-        nav a {
-            color: #fff;
-            text-decoration: none;
-            font-weight: bold;
-            transition: color 0.3s ease;
-        }
-
-        nav a:hover {
-            color: #98c9a3;
-        }
-
-        .form-container {
-            width: 50%;
-            margin: 0 auto;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            margin-top: 30px;
-        }
-
-        .door-selection {
-            margin-top: 20px;
-        }
-
-        .door-counts input {
-            width: 60px;
-            display: inline-block;
-            margin-left: 10px;
-        }
-
-        .door-item {
-            margin-bottom: 10px;
-        }
-
-        .door-item label {
-            margin-bottom: 0;
-        }
-
-        .error-message {
-            color: red;
-            font-size: 12px;
-        }
-
-
-        footer {
-            background-color: #2d6a4f;
-            color: #fff;
-            text-align: center;
-            padding: 20px;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-        }
-
-        footer a {
-            color: #98c9a3;
-            text-decoration: none;
-            margin: 0 10px;
-        }
-
-        footer a:hover {
-            color: #fff;
-        }
-
-        footer .social-links a {
-            margin: 0 10px;
-            font-size: 20px;
-        }
-        /*reg-------------------*/
-        h1, p, label {
-            color: white;
-            font-family: Cormorant, sans-serif;
-        }
-        h1 {
-            font-size: 32px;
-        }
-        .registration {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            border: 3px lightgreen solid;
-            width: 600px;
-            height: 550px;
-            row-gap: 20px;
-            flex-wrap: wrap;
-            padding: 20px 0 0;
-        }
-        .form-register {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            width: 50%;
-            row-gap: 3px;
-        }
-        input {
-            width: 300px;
-        }
-        .login-section{
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            width: 50%;
-            row-gap: 10px;
-            padding: 30px;
-        }
-        .form-login{
-            display: flex;
-            flex-direction: column;
-            row-gap: 50px;
-        }
-        body{
-            background-color: #1d2f30;
-        }
-        input[type=text], input[type=password] {
-            width: 200px;
-            height: 25px;
-            outline: none;
-            font-size: 16px;
-        }
-        .button-login {
-            width: 100px;
-            height: 30px;
-            cursor: pointer;
-            background-color: #27ae60;
-            border: none;
-            color: white;
-            transition: 0.3s;
-            border-radius: 7px;
-        }
-        .button-login:hover {
-            background-color: mediumspringgreen;
-            transition: 0.3s;
-        }
-    </style>
 <body>
-<section class="login-section">
-    <h1>Вход</h1>
+<header class="header">
+    <img th:src="@{/logo-v4-2.svg}" alt="Логотип компании">
+    <nav>
+        <ul>
+            <li><a href="/">Главная</a></li>
+            <li><a href="/listOrders">Заказы</a></li>
+            <li><a href="/profile">Мой профиль</a></li>
+            <!-- Если пользователь есть в сессии, выводим ссылку "Выход" -->
+            <ul>
+                <!-- Показываем "Выход", если пользователь залогинен -->
+                <li sec:authorize="isAuthenticated()">
+                    <form th:action="@{/logout}" method="post">
+                        <button type="submit">Выход</button>
+                    </form>
+                </li>
 
-    <form class="form-login" method="POST" th:action="@{/login}" id="loginForm">
+                <!-- Показываем "Register" и "Login", если пользователь НЕ залогинен -->
+                <li sec:authorize="!isAuthenticated()">
+                    <a href="/register">Register</a>
+                </li>
+                <li sec:authorize="!isAuthenticated()">
+                    <a href="/login">Login</a>
+                </li>
+            </ul>
 
-        <input placeholder="Логин" type="text" name="username" id="username" />
-
-        <input placeholder="Пароль" type="password" name="password" id="password" />
+        </ul>
+    </nav>
+</header>
+<main class="login-section shadowsSection">
+    <h1 class="loginTitle">Вход</h1>
+    <form class="loginForm" method="POST" th:action="@{/login}" id="loginForm">
+        <input class="shadowsSection shadows-input" placeholder="Логин" type="text" name="username" id="username" />
+        <input class="shadowsSection shadows-input" placeholder="Пароль" type="password" name="password" id="password" />
         <p><a th:href="@{/register}">Нажми</a> для регистрации</p>
-            <input type="checkbox" name="rememberMe"> Запомнить меня</input>
-        <button class="button-login" type="submit">Войти</button>
+        <p><input type="checkbox" name="rememberMe"> Запомнить меня</p>
+        <button class="button-login shadowsSection" type="submit">Войти</button>
     </form>
-</section>
+</main>
 
 <!--<div th:if="${error}">-->
 <!--    Ошибка, давай бб-->
+
 <!--</div>-->
+<footer>
+    <p>Контактная информация: info@doorscompany.com</p>
+    <p><a href="/privacy">Политика конфиденциальности</a> | <a href="/terms">Условия использования</a></p>
+    <div class="social-links">
+        <a href="https://mrdverkin.ru/">Каталог</a>
+        <a href="https://twitter.com">Twitter</a>
+    </div>
+</footer>
+
 </body>
 </html>
