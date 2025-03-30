@@ -9,34 +9,34 @@
     <link rel="stylesheet" th:href="@{/style/login.css}">
 </head>
 <body>
-<header class="header">
-    <img th:src="@{/logo-v4-2.svg}" alt="Логотип компании">
-    <nav>
-        <ul>
-            <li><a href="/">Главная</a></li>
-            <li><a href="/listOrders">Заказы</a></li>
-            <li><a href="/profile">Мой профиль</a></li>
-            <!-- Если пользователь есть в сессии, выводим ссылку "Выход" -->
-            <ul>
-<!--                &lt;!&ndash; Показываем "Выход", если пользователь залогинен &ndash;&gt;-->
-<!--                <li sec:authorize="isAuthenticated()">-->
-<!--                    <form th:action="@{/logout}" method="post">-->
-<!--                        <button type="submit">Выход</button>-->
-<!--                    </form>-->
-<!--                </li>-->
+<!--<header class="header">-->
+<!--    <img th:src="@{/logo-v4-2.svg}" alt="Логотип компании">-->
+<!--    <nav>-->
+<!--&lt;!&ndash;        <ul>&ndash;&gt;-->
+<!--&lt;!&ndash;            <li><a href="/">Главная</a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;            <li><a href="/listOrders">Заказы</a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;            <li><a href="/profile">Мой профиль</a></li>&ndash;&gt;-->
+<!--            &lt;!&ndash; Если пользователь есть в сессии, выводим ссылку "Выход" &ndash;&gt;-->
+<!--&lt;!&ndash;            <ul>&ndash;&gt;-->
+<!--&lt;!&ndash;                &lt;!&ndash; Показываем "Выход", если пользователь залогинен &ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;                <li sec:authorize="isAuthenticated()">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <form th:action="@{/logout}" method="post">&ndash;&gt;-->
+<!--&lt;!&ndash;                        <button type="submit">Выход</button>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </form>&ndash;&gt;-->
+<!--&lt;!&ndash;                </li>&ndash;&gt;-->
 
-                <!-- Показываем "Register" и "Login", если пользователь НЕ залогинен -->
-                <li sec:authorize="!isAuthenticated()">
-                    <a href="/register">Register</a>
-                </li>
-                <li sec:authorize="!isAuthenticated()">
-                    <a href="/login">Login</a>
-                </li>
-            </ul>
+<!--&lt;!&ndash;                &lt;!&ndash; Показываем "Register" и "Login", если пользователь НЕ залогинен &ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;                <li sec:authorize="!isAuthenticated()">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <a href="/register">Register</a>&ndash;&gt;-->
+<!--&lt;!&ndash;                </li>&ndash;&gt;-->
+<!--&lt;!&ndash;                <li sec:authorize="!isAuthenticated()">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <a href="/login">Login</a>&ndash;&gt;-->
+<!--&lt;!&ndash;                </li>&ndash;&gt;-->
+<!--&lt;!&ndash;            </ul>&ndash;&gt;-->
 
-        </ul>
-    </nav>
-</header>
+<!--&lt;!&ndash;        </ul>&ndash;&gt;-->
+<!--    </nav>-->
+<!--</header>-->
 <main class="login-section shadowsSection">
     <h1 class="loginTitle">Вход</h1>
     <form class="loginForm" method="POST" th:action="@{/login}" id="loginForm">
