@@ -18,12 +18,12 @@
             <li><a href="/profile">Мой профиль</a></li>
             <!-- Если пользователь есть в сессии, выводим ссылку "Выход" -->
             <ul>
-                <!-- Показываем "Выход", если пользователь залогинен -->
-                <li sec:authorize="isAuthenticated()">
-                    <form th:action="@{/logout}" method="post">
-                        <button type="submit">Выход</button>
-                    </form>
-                </li>
+<!--                &lt;!&ndash; Показываем "Выход", если пользователь залогинен &ndash;&gt;-->
+<!--                <li sec:authorize="isAuthenticated()">-->
+<!--                    <form th:action="@{/logout}" method="post">-->
+<!--                        <button type="submit">Выход</button>-->
+<!--                    </form>-->
+<!--                </li>-->
 
                 <!-- Показываем "Register" и "Login", если пользователь НЕ залогинен -->
                 <li sec:authorize="!isAuthenticated()">
