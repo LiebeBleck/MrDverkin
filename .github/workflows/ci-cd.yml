@@ -16,13 +16,13 @@ jobs:
       postgres:
         image: postgres:15
         env:
-          POSTGRES_DB: testdb
-          POSTGRES_USER: testuser
-          POSTGRES_PASSWORD: testpass
+          POSTGRES_DB: fastdoors
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: Porfik10
         ports:
           - 5432:5432
         options: >-
-          --health-cmd "pg_isready -U testuser -d testdb"
+          --health-cmd "pg_isready -U postgres"
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
@@ -37,8 +37,8 @@ jobs:
           java-version: '21'
           distribution: 'temurin'
 
-      - name: Wait for PostgreSQL to be ready
-        run: sleep 10  # Даём базе время подняться
+      - name: Wait for PostgreSQL
+        run: sleep 10  # Даем БД время на запуск
 
       - name: Build with Maven
         run: mvn clean install
