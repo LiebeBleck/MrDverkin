@@ -1,10 +1,8 @@
-
-
 body {
     font-family: Arial, sans-serif;
     background-color: #E9D6C7;
     margin: 0;
-    padding: 20px;
+    /*padding: 20px;*/
 }
 
 header {
@@ -35,7 +33,7 @@ nav a {
 }
 
 nav a:hover {
-    color: #4E3629;
+    color: #C0A28E;
 }
 
 main {
@@ -89,7 +87,7 @@ button a {
 }
 
 button:hover {
-    background-color: #4E3629;
+    background-color: #442d25;
 }
 
 .notifications ul {

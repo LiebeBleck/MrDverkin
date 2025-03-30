@@ -1,65 +1,24 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-    <meta charset="UTF-8">
+      xmlns:th="http://www.thymeleaf.org">
 <head>
+    <meta charset="UTF-8">
     <title>Войти</title>
     <link rel="stylesheet" th:href="@{/style/style.css}">
     <link rel="stylesheet" th:href="@{/style/login.css}">
 </head>
 <body>
-<!--<header class="header">-->
-<!--    <img th:src="@{/logo-v4-2.svg}" alt="Логотип компании">-->
-<!--    <nav>-->
-<!--&lt;!&ndash;        <ul>&ndash;&gt;-->
-<!--&lt;!&ndash;            <li><a href="/">Главная</a></li>&ndash;&gt;-->
-<!--&lt;!&ndash;            <li><a href="/listOrders">Заказы</a></li>&ndash;&gt;-->
-<!--&lt;!&ndash;            <li><a href="/profile">Мой профиль</a></li>&ndash;&gt;-->
-<!--            &lt;!&ndash; Если пользователь есть в сессии, выводим ссылку "Выход" &ndash;&gt;-->
-<!--&lt;!&ndash;            <ul>&ndash;&gt;-->
-<!--&lt;!&ndash;                &lt;!&ndash; Показываем "Выход", если пользователь залогинен &ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;                <li sec:authorize="isAuthenticated()">&ndash;&gt;-->
-<!--&lt;!&ndash;                    <form th:action="@{/logout}" method="post">&ndash;&gt;-->
-<!--&lt;!&ndash;                        <button type="submit">Выход</button>&ndash;&gt;-->
-<!--&lt;!&ndash;                    </form>&ndash;&gt;-->
-<!--&lt;!&ndash;                </li>&ndash;&gt;-->
 
-<!--&lt;!&ndash;                &lt;!&ndash; Показываем "Register" и "Login", если пользователь НЕ залогинен &ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;                <li sec:authorize="!isAuthenticated()">&ndash;&gt;-->
-<!--&lt;!&ndash;                    <a href="/register">Register</a>&ndash;&gt;-->
-<!--&lt;!&ndash;                </li>&ndash;&gt;-->
-<!--&lt;!&ndash;                <li sec:authorize="!isAuthenticated()">&ndash;&gt;-->
-<!--&lt;!&ndash;                    <a href="/login">Login</a>&ndash;&gt;-->
-<!--&lt;!&ndash;                </li>&ndash;&gt;-->
-<!--&lt;!&ndash;            </ul>&ndash;&gt;-->
-
-<!--&lt;!&ndash;        </ul>&ndash;&gt;-->
-<!--    </nav>-->
-<!--</header>-->
-<main class="login-section shadowsSection">
+<main class="login-section">
     <h1 class="loginTitle">Вход</h1>
     <form class="loginForm" method="POST" th:action="@{/login}" id="loginForm">
-        <input class="shadowsSection shadows-input" placeholder="Логин" type="text" name="username" id="username" />
-        <input class="shadowsSection shadows-input" placeholder="Пароль" type="password" name="password" id="password" />
+        <input class="shadows-input" placeholder="Логин" type="text" name="username" id="username" />
+        <input class="shadows-input" placeholder="Пароль" type="password" name="password" id="password" />
         <p><a th:href="@{/register}">Нажми</a> для регистрации</p>
         <p><input type="checkbox" name="rememberMe"> Запомнить меня</p>
         <button class="button-login shadowsSection" type="submit">Войти</button>
     </form>
 </main>
-
-<!--<div th:if="${error}">-->
-<!--    Ошибка, давай бб-->
-
-<!--</div>-->
-<footer>
-    <p>Контактная информация: info@doorscompany.com</p>
-    <p><a href="/privacy">Политика конфиденциальности</a> | <a href="/terms">Условия использования</a></p>
-    <div class="social-links">
-        <a href="https://mrdverkin.ru/">Каталог</a>
-        <a href="https://twitter.com">Twitter</a>
-    </div>
-</footer>
 
 </body>
 </html>

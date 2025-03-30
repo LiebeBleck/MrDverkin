@@ -1,50 +1,11 @@
-header img {
-    width: 150px;
-    margin-bottom: 10px;
-}
-
-.form-container {
-    width: 50%;
-    margin: 0 auto;
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin-top: 30px;
-}
-
-.door-selection {
-    margin-top: 20px;
-}
-
-.door-counts input {
-    width: 60px;
-    display: inline-block;
-    margin-left: 10px;
-}
-
-.door-item {
-    margin-bottom: 10px;
-}
-
-.door-item label {
-    margin-bottom: 0;
-}
-
-.error-message {
-    color: red;
-    font-size: 12px;
-}
-h1 {
-    font-size: 32px;
-}
-
-.form-register {
+body {
+    margin: 0;
+    padding: 0;
     display: flex;
-    flex-direction: column;
     justify-content: center;
-    width: 50%;
-    row-gap: 3px;
+    align-items: center;
+    height: 100vh;
+    background-color: #E9D6C7; /* Фон страницы тот же цвет */
 }
 
 .login-section {
@@ -52,43 +13,69 @@ h1 {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    row-gap: 10px;
-    /*padding: 30px;*/
-    width: 300px;
-    height: 350px;
-    text-align: center;
+    row-gap: 15px;
+    width: 100%;
+    max-width: 400px; /* Ограничиваем ширину */
+    padding: 20px;
+    background: #e0e5ec; /* Фон формы тот же цвет, что и фон страницы */
+    border-radius: 20px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
 }
+
+.loginTitle {
+    font-size: 32px;
+    font-weight: bold;
+}
+
 .loginForm {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     row-gap: 20px;
+    width: 100%;
 }
-.shadowsSection{
-    background: #e0e5ec;
-    border-radius: 20px;
-    box-shadow: 10px 10px 20px #a3b1c6, -10px -10px 20px white;
-}
+
 .shadows-input {
-    background: #e0e5ec;
+    background: #e0e5ec; /* Тот же цвет фона */
     border-radius: 20px;
-    box-shadow: 10px 10px 20px #a3b1c6, inset -10px -10px 20px white;
+    box-shadow: inset 5px 5px 10px rgba(0, 0, 0, 0.1), inset -5px -5px 10px white;
     border: none;
-    height: 30px;
-    width: 200px;
-    padding-left: 7px;
+    height: 35px;
+    width: 100%;
+    padding-left: 10px;
+    font-size: 16px;
+}
+
+.shadows-input:focus {
+    outline: none;
+    box-shadow: inset 5px 5px 10px rgba(0, 0, 0, 0.15), inset -5px -5px 10px white;
 }
 
 .button-login {
+    background-color: #e0e5ec; /* Тот же цвет фона */
     color: black;
+    border-radius: 20px;
+    border: none;
+    padding: 10px 20px;
     cursor: pointer;
+    transition: background-color 0.3s ease;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1), -5px -5px 10px white;
 }
 
 .button-login:hover {
-    background-color: #e0e5ec;
+    background-color: #cbd2d9; /* Чуть более темный оттенок */
 }
 
 .button-login:active {
-    box-shadow: inset 5px 5px 10px #a3b1c6, inset -5px -5px 10px white; /* Pressed-in effect */
+    background-color: #b3bcc8; /* Еще более темный оттенок */
+}
+
+a {
+    text-decoration: none;
+    color: #e0e5ec; /* Соответствует фону */
+}
+
+a:hover {
+    text-decoration: underline;
 }
