@@ -3,30 +3,48 @@ name: Java CI/CD Pipeline
 on:
   push:
     branches:
-      - master  # Запускать при пуше в ветку master
+      - master
   pull_request:
     branches:
-      - master  # Также запускать при pull-request'ах в master
+      - master
 
 jobs:
   build:
-    runs-on: ubuntu-latest  # Используем Ubuntu как рабочую среду
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_DB: testdb
+          POSTGRES_USER: testuser
+          POSTGRES_PASSWORD: testpass
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U testuser -d testdb"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2  # Загружаем код из репозитория
+        uses: actions/checkout@v2
 
       - name: Set up JDK 21
         uses: actions/setup-java@v2
         with:
           java-version: '21'
-          distribution: 'temurin'  # Указываем правильный дистрибутив
+          distribution: 'temurin'
+
+      - name: Wait for PostgreSQL to be ready
+        run: sleep 10  # Даём базе время подняться
 
       - name: Build with Maven
-        run: mvn clean install  # Строим проект с помощью Maven
+        run: mvn clean install
 
       - name: Run tests
-        run: mvn test  # Запускаем тесты (если они есть)
+        run: mvn test
 
       - name: Deploy to Server
         uses: appleboy/ssh-action@v0.1.2
@@ -37,13 +55,13 @@ jobs:
           port: ${{ secrets.PORT }}
           script: |
             echo "Starting deployment..."
-            cd MrDverkin/   # Переход в каталог с проектом
-            git pull origin master  # Обновление репозитория
-            if [ $? -ne 0 ]; then echo "git pull failed!"; exit 1; fi  # Проверка успешности команды
-            mvn clean install     # Пересборка проекта
-            if [ $? -ne 0 ]; then echo "Maven build failed!"; exit 1; fi  # Проверка успешности сборки
-            cp target/MrDverkin-0.0.1-SNAPSHOT.jar /path/to/deploy/  # Копирование .jar файла в нужную директорию
-            if [ $? -ne 0 ]; then echo "Copying JAR file failed!"; exit 1; fi  # Проверка успешности копирования
-            sudo systemctl restart my-app.service  # Перезапуск сервиса
-            if [ $? -ne 0 ]; then echo "Service restart failed!"; exit 1; fi  # Проверка успешности перезапуска
+            cd MrDverkin/
+            git pull origin master
+            if [ $? -ne 0 ]; then echo "git pull failed!"; exit 1; fi
+            mvn clean install
+            if [ $? -ne 0 ]; then echo "Maven build failed!"; exit 1; fi
+            cp target/MrDverkin-0.0.1-SNAPSHOT.jar /path/to/deploy/
+            if [ $? -ne 0 ]; then echo "Copying JAR file failed!"; exit 1; fi
+            sudo systemctl restart my-app.service
+            if [ $? -ne 0 ]; then echo "Service restart failed!"; exit 1; fi
             echo "Deployment successful!"
