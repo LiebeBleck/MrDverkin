@@ -6,8 +6,12 @@
 
 body {
     background-color: #E9D6C7;
-    color: #4E3629;
+    min-height: 100vh; /* Устанавливает минимальную высоту */
+    margin: 0;
     font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    row-gap: 50px;
 }
 
 header {
@@ -19,12 +23,10 @@ header {
     width: 100%;
     flex-direction: column;
 }
-
 header img {
     width: 150px;
     margin-bottom: 10px;
 }
-
 nav ul {
     list-style-type: none;
     display: flex;
@@ -32,18 +34,15 @@ nav ul {
     gap: 20px;
     padding: 0;
 }
-
 nav a {
     color: #E9D6C7;
     text-decoration: none;
     font-weight: bold;
     transition: color 0.3s ease;
 }
-
 nav a:hover {
     color: #C0A28E;
 }
-
 .orders {
     width: 80%;
     margin: 30px auto;
@@ -52,11 +51,9 @@ nav a:hover {
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
-
 .orders h2 {
     color: #4E3629;
 }
-
 button {
     background-color: #4E3629;
     color: white;
@@ -66,16 +63,18 @@ button {
     cursor: pointer;
     font-size: 16px;
 }
-
 button a {
     text-decoration: none;
     color: white;
 }
-
 button:hover {
     background-color: #3B2B1E;
 }
-
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 footer {
     background-color: #4E3629;
     color: #E9D6C7;
