@@ -2,6 +2,7 @@ package org.example.mrdverkin.dto;
 
 import lombok.Data;
 import org.example.mrdverkin.dataBase.Entitys.Order;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
@@ -48,7 +49,7 @@ public class OrderAttribute {
     }
 
     // Метод для преобразования списка Order в список OrderAttribute
-    public static List<OrderAttribute> fromOrderList(List<Order> orders) {
+    public static List<OrderAttribute> fromOrderList(Page<Order> orders) {
         return orders.stream()
                 .map(OrderAttribute::fromOrder)
                 .collect(Collectors.toList());

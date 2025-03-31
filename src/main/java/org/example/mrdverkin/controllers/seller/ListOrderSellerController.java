@@ -6,6 +6,9 @@ import org.example.mrdverkin.dataBase.Entitys.Order;
 import org.example.mrdverkin.dataBase.Repository.OrderRepository;
 import org.example.mrdverkin.services.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,10 +25,15 @@ public class ListOrderSellerController {
     private OrderService orderService;
 
     @GetMapping
-    public String listOrders(@AuthenticationPrincipal User user, Model model) {
-        List<Order> ordes = orderRepository.findOrdersByUser(user);
-        List<OrderAttribute> orderAttributes = OrderAttribute.fromOrderList(ordes);
+    public String listOrders(@AuthenticationPrincipal User user,Model model,
+                             @RequestParam(defaultValue = "0") int page,
+                             @RequestParam(defaultValue = "10") int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Order> ordersPage = orderRepository.findOrdersByUser(user,pageable);
+        List<OrderAttribute> orderAttributes = OrderAttribute.fromOrderList(ordersPage);
         model.addAttribute("orders", orderAttributes);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", ordersPage.getTotalPages());
         return "listOrdersSeller";
     }
 

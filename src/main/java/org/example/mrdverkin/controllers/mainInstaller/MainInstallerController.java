@@ -8,6 +8,9 @@ import org.example.mrdverkin.dataBase.Repository.OrderRepository;
 import org.example.mrdverkin.dto.DateAvailability;
 import org.example.mrdverkin.services.MainInstallerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.ui.Model;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -54,14 +57,20 @@ public class MainInstallerController {
      * @return mainInstaller.
      */
     @GetMapping
-    public String mainInstaller(Model model) {
-        List<Order> ordes = orderRepository.findByInstallerNull();
+    public String mainInstaller(Model model,
+                                @RequestParam(defaultValue = "0") int page,
+                                @RequestParam(defaultValue = "10") int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Order> ordersPage = orderRepository.findByInstallerNull(pageable);
         List<DateAvailability> availabilityList = DateAvailability.fromDates(orderRepository);
 
-        List<OrderAttribute> orderAttributes = OrderAttribute.fromOrderList(ordes);
+        List<OrderAttribute> orderAttributes = OrderAttribute.fromOrderList(ordersPage);
+
         model.addAttribute("orders", orderAttributes);
         model.addAttribute("installers", installerRepository.findAll());
         model.addAttribute("availabilityList", availabilityList);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", ordersPage.getTotalPages());
         return "mainInstaller";
     }
 }

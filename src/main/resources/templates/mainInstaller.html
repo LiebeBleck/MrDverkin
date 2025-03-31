@@ -160,41 +160,42 @@
     }
   </script>
   <style>
-    .mainInstaller_page {
+    .calendar-container {
       display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      width: 100%;
-      row-gap: 30px;
-    }
-    .calendar-div {
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 20px;
       margin-top: 20px;
+      width: 100%;
+    }
+
+    .calendar-div {
+      flex: 1;
       display: flex;
-      justify-content: center;
-      align-items: center;
       flex-direction: column;
-      row-gap: 20px;
+      align-items: center;
     }
-    .calendar-subtitle {
-      font-size: 20px;
-      font-weight: bold;
+
+    .availability-table {
+      flex: 1;
     }
+
     .pika-lendar {
-      width: 500px;
-      height: 210px;
+      width: 300px;
+      height: auto;
     }
 
     #calendar-popup {
       position: absolute;
       width: 200px;
-      height: 100px;
-      background-color: rgb(98,125,57);
+      height: auto;
+      background-color: rgb(98, 125, 57);
       border: 1px solid black;
       overflow: hidden;
       display: none;
       z-index: 10000;
     }
+
   </style>
 </head>
 
@@ -261,32 +262,57 @@
   </tr>
   </tbody>
 </table>
-<!-- Календарь -->
-<div class="calendar-div">
-  <p class="calendar-subtitle">Выберите дату:</p>
-  <div id="calendar">
 
-    <div id="calendar-popup"></div>
-  </div>
+<!-- Пагинация
+Можно так же добавить переход на 1 и последнюю страницу
+-->
+<div class="pagination">
+  <form action="/home/mainInstaller" method="get" class="pagination-form">
+    <input type="hidden" name="page" th:value="${currentPage - 1}" />
+    <input type="hidden" name="size" th:value="${size}" />
+    <button type="submit" th:if="${currentPage > 0}">Предыдущая</button>
+  </form>
+
+  <span>Страница <span th:text="${currentPage + 1}"></span> из <span th:text="${totalPages}"></span></span>
+
+  <form action="/home/mainInstaller" method="get" class="pagination-form">
+    <input type="hidden" name="page" th:value="${currentPage + 1}" />
+    <input type="hidden" name="size" th:value="${size}" /> <!-- Задел на то что пользователь сможет выбирать размер списка-->
+    <button type="submit" th:if="${currentPage < totalPages - 1}">Следующая</button>
+  </form>
 </div>
 
 <h2>Доступность дверей на неделю</h2>
-<table border="1">
-  <thead>
-  <tr>
-    <th>Дата</th>
-    <th>Доступные входные двери</th>
-    <th>Доступные межкомнатные двери</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr th:each="day : ${availabilityList}">
-    <td th:text="${day.date}"></td>
-    <td th:text="${day.frontDoorQuantity}"></td>
-    <td th:text="${day.inDoorQuantity}"></td>
-  </tr>
-  </tbody>
-</table>
+<!-- Календарь -->
+<div class="calendar-container">
+  <!-- Календарь -->
+  <div class="calendar-div">
+    <div id="calendar">
+      <div id="calendar-popup"></div>
+    </div>
+  </div>
+
+  <!-- Таблица доступности дверей -->
+  <div class="availability-table">
+    <table border="1">
+      <thead>
+      <tr>
+        <th>Дата</th>
+        <th>Доступные входные двери</th>
+        <th>Доступные межкомнатные двери</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="day : ${availabilityList}">
+        <td th:text="${day.date}"></td>
+        <td th:text="${day.frontDoorQuantity}"></td>
+        <td th:text="${day.inDoorQuantity}"></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
 
 
 <footer style="position: relative">
