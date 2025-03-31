@@ -46,5 +46,25 @@
   </th:block>
   </tbody>
 </table>
+
+<!-- Пагинация
+Можно так же добавить переход на 1 и последнюю страницу
+-->
+<div class="pagination">
+  <form action="/listOrdersSeller" method="get" class="pagination-form">
+    <input type="hidden" name="page" th:value="${currentPage - 1}" />
+    <input type="hidden" name="size" th:value="${size}" />
+    <button type="submit" th:if="${currentPage > 0}">Предыдущая</button>
+  </form>
+
+  <span>Страница <span th:text="${currentPage + 1}"></span> из <span th:text="${totalPages}"></span></span>
+
+  <form action="/listOrdersSeller" method="get" class="pagination-form">
+    <input type="hidden" name="page" th:value="${currentPage + 1}" />
+    <input type="hidden" name="size" th:value="${size}" /> <!-- Задел на то что пользователь сможет выбирать размер списка-->
+    <button type="submit" th:if="${currentPage < totalPages - 1}">Следующая</button>
+  </form>
+</div>
+
 </body>
 </html>
