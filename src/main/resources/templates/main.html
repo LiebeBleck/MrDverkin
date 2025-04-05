@@ -3,6 +3,7 @@
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Главная</title>
     <link rel="stylesheet" th:href="@{/style/style.css}">
     <link rel="stylesheet" th:href="@{/style/main.css}">
@@ -10,10 +11,11 @@
 </head>
 <body>
 <header class="header">
-    <img th:src="@{/logo-v4-2.svg}" alt="Логотип компании">
-    <nav>
+    <figure>
+        <a href="/"><img class="logo" th:src="@{/logo-v4-2.svg}" alt="Логотип компании"></a>
+     </figure>
+    <nav class="nav">
         <ul>
-            <li><a href="/">Главная</a></li>
             <li><a href="/listOrders">Заказы</a></li>
             <li><a href="/profile">Мой профиль</a></li>
             <!-- Если пользователь есть в сессии, выводим ссылку "Выход" -->
@@ -24,23 +26,30 @@
                         <button type="submit">Выход</button>
                     </form>
                 </li>
-
                 <!-- Показываем "Register" и "Login", если пользователь НЕ залогинен -->
                 <li sec:authorize="!isAuthenticated()">
-                    <a href="/register">Register</a>
+                    <a href="/register">Регистрация</a>
                 </li>
                 <li sec:authorize="!isAuthenticated()">
-                    <a href="/login">Login</a>
+                    <a href="/login">Вход</a>
                 </li>
             </ul>
-
         </ul>
     </nav>
+    <div class="burger">
+        <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M4 18L20 18" stroke="#000000" stroke-width="2" stroke-linecap="round"/>
+            <path d="M4 12L20 12" stroke="#000000" stroke-width="2" stroke-linecap="round"/>
+            <path d="M4 6L20 6" stroke="#000000" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+    </div>
+
+
 </header>
 <main>
     <h4>Инфа по сайту, документация</h4>
 </main>
-<footer>
+<footer class="footer">
     <p>Контактная информация: info@doorscompany.com</p>
     <p><a href="/privacy">Политика конфиденциальности</a> | <a href="/terms">Условия использования</a></p>
     <div class="social-links">
@@ -48,5 +57,41 @@
         <a href="https://twitter.com">Twitter</a>
     </div>
 </footer>
+
+<div class="burger_popup">
+    <div class="burger_popup_close">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 32 32">
+            <path fill="#000000" d="M17.414 16L24 9.414L22.586 8L16 14.586L9.414 8L8
+            9.414L14.586 16L8 22.586L9.414 24L16 17.414L22.586 24L24 22.586z"/></svg>
+    </div>
+
+
+
+    <nav class="navBurger">
+        <ul>
+            <li><a href="/listOrders">Заказы</a></li>
+            <li><a href="/profile">Мой профиль</a></li>
+            <!-- Если пользователь есть в сессии, выводим ссылку "Выход" -->
+            <ul>
+                <!-- Показываем "Выход", если пользователь залогинен -->
+                <li sec:authorize="isAuthenticated()">
+                    <form th:action="@{/logout}" method="post">
+                        <button type="submit">Выход</button>
+                    </form>
+                </li>
+                <!-- Показываем "Register" и "Login", если пользователь НЕ залогинен -->
+                <li sec:authorize="!isAuthenticated()">
+                    <a href="/register">Регистрация</a>
+                </li>
+                <li sec:authorize="!isAuthenticated()">
+                    <a href="/login">Вход</a>
+                </li>
+            </ul>
+        </ul>
+    </nav>
+</div>
+
+
+<script th:src="@{../js/burgerMenu.js}" th:inline="javascript"></script>
 </body>
 </html>
