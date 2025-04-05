@@ -73,7 +73,7 @@ body {
 
 a {
     text-decoration: none;
-    color: #e0e5ec; /* Соответствует фону */
+    color: lightgrey; /* Соответствует фону */
 }
 
 a:hover {
