@@ -2,6 +2,7 @@
     box-sizing: border-box;
     margin: 0 auto;
     padding: 0;
+    scroll-behavior: inherit;
 }
 
 body {
@@ -14,6 +15,10 @@ body {
     row-gap: 50px;
 }
 
+.logo {
+    width: 200px;
+    height: 100px;
+}
 .input-group {
     margin-bottom: 20px;
 }
@@ -85,7 +90,6 @@ nav a {
     color: #E9D6C7;
     text-decoration: none;
     font-weight: bold;
-    transition: color 0.3s ease;
 }
 nav a:hover {
     color: #C0A28E;
