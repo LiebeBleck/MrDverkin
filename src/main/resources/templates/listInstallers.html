@@ -1,30 +1,12 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
   <meta charset="UTF-8">
   <title>Управление установщиками</title>
-  <style>
-    table {
-      width: 100%;
-      border-collapse: collapse;
-    }
-    th, td {
-      border: 1px solid black;
-      padding: 8px;
-      text-align: left;
-    }
-    th {
-      background-color: #f2f2f2;
-    }
-    .actions button {
-      margin-right: 5px;
-    }
-  </style>
+  <link rel="stylesheet" th:href="@{/style/listInstallers.css}">
 </head>
 <body>
-
 <h1>Список установщиков</h1>
-
 <table>
   <thead>
   <tr>
