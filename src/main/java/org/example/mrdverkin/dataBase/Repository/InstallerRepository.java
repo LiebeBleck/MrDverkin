@@ -1,7 +1,6 @@
 package org.example.mrdverkin.dataBase.Repository;
 
 import org.example.mrdverkin.dataBase.Entitys.Installer;
-import org.example.mrdverkin.dataBase.Entitys.Order;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
